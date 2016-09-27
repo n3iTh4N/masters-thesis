@@ -5,3 +5,17 @@ LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 <%= @qsj['1'][0]['1'][0]['1'][0]['1'] %>
 <br/>
 <%= @qsj['1'][0]["#{current_student.team_id}"][0]["#{current_student.player_number}"][0]['1'] %>
+<br/>
+<%= Question.where(id: @qsj['1'][0]["#{current_student.team_id}"][0]["#{current_student.player_number}"][0]['1'])[0].content %>
+<br/>
+
+<div id="questionPane">
+<%=
+  dq = @qsj["#{@level}"][0]["#{current_student.team_id}"][0]["#{current_student.player_number}"][0]["#{@ctr}"]
+  Question.where(id: dq)[0].content
+  @curr_ans = Question.where(id: dq)[0].answer
+%>
+</div>
+
+<input type="text" class="answerText" value="">
+<input type="button" class="answerButton" value="Send!">

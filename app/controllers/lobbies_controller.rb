@@ -28,10 +28,15 @@ class LobbiesController < ApplicationController
 		# @qs = '{"names":["Africa","America", "Asia", "Australia"],"street":"Oslo West 16","phone":"555 1234567"}'
 		# @qsj = JSON.parse(@qs)
 		# @qsjl = @qsj.length
-		@ctr = 0
+		# initialize everything
+		@ctr = 1
+		@level = 1
+		@question_per_level = 1
+
 		@qs = '
 			{"names":[{"names":["Africa","America", "Asia", "Australia"]},"America", "Asia", "Australia"]}
 		'
+		# level => team => player_number
 		@eiqs = '
 			{
 				"1":
@@ -43,6 +48,16 @@ class LobbiesController < ApplicationController
 									"1" :
 									[
 										{"1":"1", "2":"2"}
+									]
+									,
+									"2" :
+									[
+										{"1":"3", "2":"4"}
+									]
+									,
+									"3" :
+									[
+										{"1":"5", "2":"6"}
 									]
 								}
 							]

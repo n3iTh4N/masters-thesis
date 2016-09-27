@@ -10,3 +10,9 @@
           $(this).attr("i"),
           $(this).attr("j")
         )
+
+    $(".answerButton").click ->
+        App.lobby.answer(
+          $(".answerText").val(),
+          @curr_ans
+        )

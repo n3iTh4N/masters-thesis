@@ -13,7 +13,7 @@ lobby name of student: <%= current_student.lobby.name %>
 <tr>
 	<% for i in 1..@game_to_play.number_of_teams do %>
 		<td>
-		<% for j in 1..@game_to_play.number_of_teams do %>
+		<% for j in 1..@game_to_play.players_per_team do %>
 			<input
 				type="button"
 				value="<%= i.to_s+j.to_s %>"

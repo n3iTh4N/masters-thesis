@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925071951) do
+ActiveRecord::Schema.define(version: 20160927064219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,11 @@ ActiveRecord::Schema.define(version: 20160925071951) do
     t.integer "player_count"
     t.integer "game_id"
     t.boolean "playing"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "content"
+    t.string "answer"
   end
 
   create_table "students", force: :cascade do |t|

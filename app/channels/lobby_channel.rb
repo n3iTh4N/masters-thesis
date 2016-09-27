@@ -25,9 +25,21 @@ class LobbyChannel < ApplicationCable::Channel
     i: data['i'],
     j: data['j'],
     x: Student.find(data['student']).email,
-
     # Send the edited data to update views
-    y: Student.find(data['student']).as_json
+    y: Student.find(data['student']).as_json,
+    from: "pickTeam"
+  end
+
+  def answer(data)
+
+    if data['answer'] == "asdf"
+      ActionCable.server.broadcast 'lobby_channel',
+      answer: data['answer'],
+      from: "answer",
+      verdict: "correct",
+
+      z: @level
+    end
   end
 
   def leave
