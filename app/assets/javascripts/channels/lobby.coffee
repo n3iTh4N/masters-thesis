@@ -28,24 +28,35 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
       # change the studentAttr label
       $("#studentAttr").html(JSON.stringify(data['y']))
 
-    if data['from'] == "answer"
+    if data['from'] == "correctanswer"
       alert("after processing answer")
       alert(data['question_id'])
       alert(data['question_answer'])
       alert(data['person_answer'])
       alert(data['verdict'])
-      $("#questionPane").html(data['question_id'])
+      alert(data['next'])
+      alert("cookies")
+      alert(data['student_cookie'])
+      alert($("#student-cookie").val())
+
+      if $("#student-cookie").val() == data['student_cookie']
+        $("#questionPane").html(data['question_id'])
+        $(".answerButton").attr("series",data['next'])
+
+    if data['from'] == "wronganswer"
+      alert("wronganswer")
 
   enter: (student)->
     @perform 'enter', student: student
 
-  answer: (game_id, team_id, player_number, series, answerText) ->
+  answer: (game_id, team_id, player_number, series, answerText, studentCookie) ->
     @perform 'answer',
     game_id: game_id,
     team_id: team_id,
     player_number: player_number,
     series: series
     answerText: answerText
+    studentCookie: studentCookie
 
   pickTeam: (pickedTeam, i, j)->
     @perform 'pickTeam',

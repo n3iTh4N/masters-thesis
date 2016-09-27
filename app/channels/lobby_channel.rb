@@ -36,6 +36,10 @@ class LobbyChannel < ApplicationCable::Channel
                       where(team_id: data['team_id']).
                       where(player_number: data['player_number']).
                       where(series: data['series'])[0].id
+    qnext = Link.where(game_id: data['game_id']).
+                      where(team_id: data['team_id']).
+                      where(player_number: data['player_number']).
+                      where(series: data['series'])[0].next
     qans = Question.find(qid).answer
     if data['answerText'].to_s == qans.to_s
       verdict = "correct"
@@ -43,12 +47,19 @@ class LobbyChannel < ApplicationCable::Channel
       verdict = "wrong"
     end
 
-    ActionCable.server.broadcast 'lobby_channel',
-    question_id: qid,
-    question_answer: qans,
-    person_answer: data['answerText'],
-    verdict: verdict,
-    from: "answer"
+    if verdict == "correct"
+      ActionCable.server.broadcast 'lobby_channel',
+      question_id: qid,
+      question_answer: qans,
+      person_answer: data['answerText'],
+      verdict: verdict,
+      next: qnext,
+      from: "correctanswer",
+      student_cookie: data['studentCookie']
+    else
+      ActionCable.server.broadcast 'lobby_channel',
+      from: "wronganswer"
+    end
   end
 
   def leave

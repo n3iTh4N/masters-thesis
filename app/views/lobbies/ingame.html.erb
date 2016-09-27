@@ -1,3 +1,5 @@
+<%= hidden_field_tag "student-cookie", current_student.id, { :id => "student-cookie" } %>
+
 LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 GAME: <%= @game_to_play %>
 SERIES: <%= @series %>
