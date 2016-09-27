@@ -1,0 +1,4 @@
+<h1> Game: <%= @game.as_json %> </h1>
+<h6> Teams playing the game: </h6> <%= @game.teams.as_json %>
+<h6> Students in the teams playing the game: </h6><%= @game.students.as_json %>
+<h6> Lobby where game is being played </h6><%= @game.lobbies.as_json %>

@@ -1,0 +1,4 @@
+<h1> Teacher: <%= @teacher.first_name.as_json %> </h1>
+<h6> Students created by the teacher </h6> <%= @teacher.students.as_json %> <br/>
+<h6> Lobbies created by the teacher </h6> <%= @teacher.lobbies.as_json %> <br/>	
+<h6> Games being played by the lobbies created by the teacher </h6> <%= @teacher.games.as_json %> <br/>	

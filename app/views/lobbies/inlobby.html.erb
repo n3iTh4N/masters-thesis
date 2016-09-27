@@ -1,0 +1,30 @@
+<audio id="openingTheme" src="/assets/glass.mp3" ></audio>
+<%= hidden_field_tag "student-cookie", current_student.id, { :id => "student-cookie" } %>
+
+LOGGED IN AS: <div id="studentAttr">
+<%= current_student.as_json %>
+</div>
+
+lobby name of student: <%= current_student.lobby.name %>
+
+<br/>
+<% #print join buttons %>
+<table>
+<tr>
+	<% for i in 1..@game_to_play.number_of_teams do %>
+		<td>
+		<% for j in 1..@game_to_play.number_of_teams do %>
+			<input
+				type="button"
+				value="<%= i.to_s+j.to_s %>"
+				class="pickTeamButton"
+				id="<%= i.to_s+j.to_s %>"
+				i="<%= i.to_s %>"
+				j ="<%= j.to_s %>"
+			>
+			<br/>
+		<% end %>
+		</td>
+	<% end %>
+</tr>
+</table>

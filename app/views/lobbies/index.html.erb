@@ -1,0 +1,23 @@
+LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
+
+<!-- [s567] scratch paper for page -->
+<!--
+<h1> Lobby: <%= @lobby.name %> </h1>
+<h6> Lobby hash: </h6><%= @lobby.as_json %>
+<h6> Teacher who created the lobby: </h6><%= @lobby.teacher.as_json %>
+<h6> Students inside the lobby: </h6><%= @lobby.students.as_json %>
+<h6> What game is being played inside this lobby: </h6><%= @lobby.game.as_json %>
+<h6> What teams are playing inside this lobby: </h6><%= @lobby.teams.as_json %>
+-->
+<!-- <input type="button" value="PLAY"  onclick="playGlass()"> -->
+<!-- [/s567] scratch paper for page -->
+
+
+<!-- [axmr] list of audio needed for this page -->
+<audio id="openingTheme" src="/assets/glass.mp3" ></audio>
+<!-- [/axmr] list of audio needed for this page -->
+
+<!-- List all lobbies -->
+<% Lobby.all.each do |l| %>
+<%= button_to l.name, {controller: "lobbies", action: "inlobby", game_name: l.name, lobby_id: l.id, method: :post}, {onlick: "play()"} %>
+<% end %>

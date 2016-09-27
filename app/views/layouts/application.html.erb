@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thesis</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body onload="playOpeningTheme()">
+<h6> page banner </h6>
+
+<%= link_to "Sign_up", new_student_registration_path, :method => :get %>
+<%= link_to "Sign_in", new_student_session_path, :method =>:get %>
+<%= link_to "Sign_out", destroy_student_session_path, :method => :delete %>
+<%= link_to "students", students_path, :method => :get %>
+
+
+<!-- required by devise -->
+<p class="notice"><%= notice %></p>
+
+
+
+<%= yield %>
+<h6> page footer </h6>
+</body>
+</html>
