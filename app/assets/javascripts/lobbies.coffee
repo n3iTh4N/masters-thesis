@@ -12,7 +12,14 @@
         )
 
     $(".answerButton").click ->
+        alert($(this).attr("game_id"))
+        alert($(this).attr("team_id"))
+        alert($(this).attr("player_number"))
+        alert($(this).attr("series"))
+
         App.lobby.answer(
-          $(".answerText").val(),
-          @curr_ans
+          $(this).attr("game_id"),
+          $(this).attr("team_id"),
+          $(this).attr("player_number"),
+          $(this).attr("series")
         )

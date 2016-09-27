@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927064219) do
+ActiveRecord::Schema.define(version: 20160927140136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 20160927064219) do
     t.integer "number_of_teams"
     t.integer "players_per_team"
     t.boolean "playing"
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "team_id"
+    t.integer "player_number"
+    t.integer "series"
+    t.integer "question_id"
   end
 
   create_table "lobbies", force: :cascade do |t|
@@ -54,6 +62,7 @@ ActiveRecord::Schema.define(version: 20160927064219) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.integer  "game_id"
     t.index ["email"], name: "index_students_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true, using: :btree
   end

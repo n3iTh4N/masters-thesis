@@ -1,21 +1,18 @@
 LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
-
-<%= @qsj %>
-<br/>
-<%= @qsj['1'][0]['1'][0]['1'][0]['1'] %>
-<br/>
-<%= @qsj['1'][0]["#{current_student.team_id}"][0]["#{current_student.player_number}"][0]['1'] %>
-<br/>
-<%= Question.where(id: @qsj['1'][0]["#{current_student.team_id}"][0]["#{current_student.player_number}"][0]['1'])[0].content %>
-<br/>
+GAME: <%= @game_to_play %>
+SERIES: <%= @series %>
 
 <div id="questionPane">
-<%=
-  dq = @qsj["#{@level}"][0]["#{current_student.team_id}"][0]["#{current_student.player_number}"][0]["#{@ctr}"]
-  Question.where(id: dq)[0].content
-  @curr_ans = Question.where(id: dq)[0].answer
-%>
+  question here
 </div>
 
 <input type="text" class="answerText" value="">
-<input type="button" class="answerButton" value="Send!">
+<input
+  type="button"
+  class="answerButton"
+  value="Send!"
+  series="<%=@series%>"
+  game_id="<%=current_student.game_id%>"
+  team_id="<%=current_student.team_id%>"
+  player_number="<%=current_student.player_number%>"
+>

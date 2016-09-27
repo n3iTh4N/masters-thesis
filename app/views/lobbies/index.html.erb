@@ -19,5 +19,5 @@ LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 
 <!-- List all lobbies -->
 <% Lobby.all.each do |l| %>
-<%= button_to l.name, {controller: "lobbies", action: "inlobby", game_name: l.name, lobby_id: l.id, method: :post}, {onlick: "play()"} %>
+<%= button_to l.name, {controller: "lobbies", action: "inlobby", game_id: l.game_id, lobby_id: l.id, method: :post}, {onlick: "play()"} %>
 <% end %>

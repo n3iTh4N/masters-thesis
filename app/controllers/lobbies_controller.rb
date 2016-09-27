@@ -10,7 +10,7 @@ class LobbiesController < ApplicationController
 		current_student.save
 		Student.where(id: current_student.id).update_all(team_id: 0)
     Student.where(id: current_student.id).update_all(player_number: 0)
-
+		Student.where(id: current_student.id).update_all(game_id: 0)
 	end
 
 	def inlobby
@@ -21,6 +21,7 @@ class LobbiesController < ApplicationController
 
 		# load the game that the lobby was set to have by the teacher
 		@game_to_play = Game.find(params[:lobby_id])
+		Student.where(id: current_student.id).update_all(game_id: @game_to_play.id)
 	end
 
 	def ingame
@@ -29,43 +30,9 @@ class LobbiesController < ApplicationController
 		# @qsj = JSON.parse(@qs)
 		# @qsjl = @qsj.length
 		# initialize everything
-		@ctr = 1
-		@level = 1
-		@question_per_level = 1
+		@game_to_play = params[:game]
+		@series = 1
 
-		@qs = '
-			{"names":[{"names":["Africa","America", "Asia", "Australia"]},"America", "Asia", "Australia"]}
-		'
-		# level => team => player_number
-		@eiqs = '
-			{
-				"1":
-					[
-						{
-							"1":
-							[
-								{
-									"1" :
-									[
-										{"1":"1", "2":"2"}
-									]
-									,
-									"2" :
-									[
-										{"1":"3", "2":"4"}
-									]
-									,
-									"3" :
-									[
-										{"1":"5", "2":"6"}
-									]
-								}
-							]
-						}
-					]
-			}
-		'
-		@qsj = JSON.parse(@eiqs)
 	end
 
 end

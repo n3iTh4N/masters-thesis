@@ -1,6 +1,7 @@
 <!-- <audio id="openingTheme" src="/assets/glass.mp3" ></audio> -->
 <%= hidden_field_tag "student-cookie", current_student.id, { :id => "student-cookie" } %>
 
+GAME BEING PLAYED: <%= @game_to_play.id %>
 LOGGED IN AS: <div id="studentAttr">
 <%= current_student.as_json %>
 </div>
@@ -30,4 +31,4 @@ lobby name of student: <%= current_student.lobby.name %>
 </table>
 
 <% #start game button %>
-<%= button_to "Start Game", ingame_lobbies_path %>
+<%= button_to "Start Game", {controller: "lobbies", action: "ingame", game: "#{@game_to_play.id}"} %>
