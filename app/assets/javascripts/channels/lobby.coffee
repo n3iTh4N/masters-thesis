@@ -31,17 +31,21 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
     if data['from'] == "answer"
       alert("after processing answer")
       alert(data['question_id'])
+      alert(data['question_answer'])
+      alert(data['person_answer'])
+      alert(data['verdict'])
       $("#questionPane").html(data['question_id'])
 
   enter: (student)->
     @perform 'enter', student: student
 
-  answer: (game_id, team_id, player_number, series) ->
+  answer: (game_id, team_id, player_number, series, answerText) ->
     @perform 'answer',
     game_id: game_id,
     team_id: team_id,
     player_number: player_number,
     series: series
+    answerText: answerText
 
   pickTeam: (pickedTeam, i, j)->
     @perform 'pickTeam',

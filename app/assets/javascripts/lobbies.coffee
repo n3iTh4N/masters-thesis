@@ -12,6 +12,7 @@
         )
 
     $(".answerButton").click ->
+        alert($(".answerText").val())
         alert($(this).attr("game_id"))
         alert($(this).attr("team_id"))
         alert($(this).attr("player_number"))
@@ -21,5 +22,6 @@
           $(this).attr("game_id"),
           $(this).attr("team_id"),
           $(this).attr("player_number"),
-          $(this).attr("series")
+          $(this).attr("series"),
+          $(".answerText").val()
         )

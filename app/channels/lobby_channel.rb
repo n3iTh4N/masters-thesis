@@ -32,12 +32,22 @@ class LobbyChannel < ApplicationCable::Channel
 
   def answer (data)
     # question_id: Link.where(game_id: data['game_id'], team_id: data['team_id'], player_number: data['player_number'], series: data['series'])
-    ActionCable.server.broadcast 'lobby_channel',
-    question_id: Link.where(game_id: data['game_id']).
+    qid = Link.where(game_id: data['game_id']).
                       where(team_id: data['team_id']).
                       where(player_number: data['player_number']).
-                      where(series: data['series'])[0].id,
+                      where(series: data['series'])[0].id
+    qans = Question.find(qid).answer
+    if data['answerText'].to_s == qans.to_s
+      verdict = "correct"
+    else
+      verdict = "wrong"
+    end
 
+    ActionCable.server.broadcast 'lobby_channel',
+    question_id: qid,
+    question_answer: qans,
+    person_answer: data['answerText'],
+    verdict: verdict,
     from: "answer"
   end
 
