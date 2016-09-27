@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :lobbies do
     collection do
       post :inlobby
+      post :ingame
     end
   end
 

@@ -23,4 +23,34 @@ class LobbiesController < ApplicationController
 		@game_to_play = Game.find(params[:lobby_id])
 	end
 
+	def ingame
+
+		# @qs = '{"names":["Africa","America", "Asia", "Australia"],"street":"Oslo West 16","phone":"555 1234567"}'
+		# @qsj = JSON.parse(@qs)
+		# @qsjl = @qsj.length
+		@ctr = 0
+		@qs = '
+			{"names":[{"names":["Africa","America", "Asia", "Australia"]},"America", "Asia", "Australia"]}
+		'
+		@eiqs = '
+			{
+				"1":
+					[
+						{
+							"1":
+							[
+								{
+									"1" :
+									[
+										{"1":"1", "2":"2"}
+									]
+								}
+							]
+						}
+					]
+			}
+		'
+		@qsj = JSON.parse(@eiqs)
+	end
+
 end

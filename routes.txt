@@ -1,0 +1,60 @@
+                     Prefix Verb   URI Pattern                       Controller#Action
+        new_student_session GET    /students/sign_in(.:format)       devise/sessions#new
+            student_session POST   /students/sign_in(.:format)       devise/sessions#create
+    destroy_student_session DELETE /students/sign_out(.:format)      devise/sessions#destroy
+           student_password POST   /students/password(.:format)      devise/passwords#create
+       new_student_password GET    /students/password/new(.:format)  devise/passwords#new
+      edit_student_password GET    /students/password/edit(.:format) devise/passwords#edit
+                            PATCH  /students/password(.:format)      devise/passwords#update
+                            PUT    /students/password(.:format)      devise/passwords#update
+cancel_student_registration GET    /students/cancel(.:format)        devise/registrations#cancel
+       student_registration POST   /students(.:format)               devise/registrations#create
+   new_student_registration GET    /students/sign_up(.:format)       devise/registrations#new
+  edit_student_registration GET    /students/edit(.:format)          devise/registrations#edit
+                            PATCH  /students(.:format)               devise/registrations#update
+                            PUT    /students(.:format)               devise/registrations#update
+                            DELETE /students(.:format)               devise/registrations#destroy
+                       root GET    /                                 lobbies#index
+                   teachers GET    /teachers(.:format)               teachers#index
+                            POST   /teachers(.:format)               teachers#create
+                new_teacher GET    /teachers/new(.:format)           teachers#new
+               edit_teacher GET    /teachers/:id/edit(.:format)      teachers#edit
+                    teacher GET    /teachers/:id(.:format)           teachers#show
+                            PATCH  /teachers/:id(.:format)           teachers#update
+                            PUT    /teachers/:id(.:format)           teachers#update
+                            DELETE /teachers/:id(.:format)           teachers#destroy
+                   students GET    /students(.:format)               students#index
+                            POST   /students(.:format)               students#create
+                new_student GET    /students/new(.:format)           students#new
+               edit_student GET    /students/:id/edit(.:format)      students#edit
+                    student GET    /students/:id(.:format)           students#show
+                            PATCH  /students/:id(.:format)           students#update
+                            PUT    /students/:id(.:format)           students#update
+                            DELETE /students/:id(.:format)           students#destroy
+                      games GET    /games(.:format)                  games#index
+                            POST   /games(.:format)                  games#create
+                   new_game GET    /games/new(.:format)              games#new
+                  edit_game GET    /games/:id/edit(.:format)         games#edit
+                       game GET    /games/:id(.:format)              games#show
+                            PATCH  /games/:id(.:format)              games#update
+                            PUT    /games/:id(.:format)              games#update
+                            DELETE /games/:id(.:format)              games#destroy
+                      teams GET    /teams(.:format)                  teams#index
+                            POST   /teams(.:format)                  teams#create
+                   new_team GET    /teams/new(.:format)              teams#new
+                  edit_team GET    /teams/:id/edit(.:format)         teams#edit
+                       team GET    /teams/:id(.:format)              teams#show
+                            PATCH  /teams/:id(.:format)              teams#update
+                            PUT    /teams/:id(.:format)              teams#update
+                            DELETE /teams/:id(.:format)              teams#destroy
+            inlobby_lobbies POST   /lobbies/inlobby(.:format)        lobbies#inlobby
+             ingame_lobbies POST   /lobbies/ingame(.:format)         lobbies#ingame
+                    lobbies GET    /lobbies(.:format)                lobbies#index
+                            POST   /lobbies(.:format)                lobbies#create
+                  new_lobby GET    /lobbies/new(.:format)            lobbies#new
+                 edit_lobby GET    /lobbies/:id/edit(.:format)       lobbies#edit
+                      lobby GET    /lobbies/:id(.:format)            lobbies#show
+                            PATCH  /lobbies/:id(.:format)            lobbies#update
+                            PUT    /lobbies/:id(.:format)            lobbies#update
+                            DELETE /lobbies/:id(.:format)            lobbies#destroy
+                                   /cable                            #<ActionCable::Server::Base:0x52118a0 @mutex=#<Monitor:0x5211888 @mon_owner=nil, @mon_count=0, @mon_mutex=#<Mutex:0x5211840>>, @pubsub=nil, @worker_pool=nil, @event_loop=nil, @remote_connections=nil>

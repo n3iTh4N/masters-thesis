@@ -1,0 +1,7 @@
+LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
+
+<%= @qsj %>
+<br/>
+<%= @qsj['1'][0]['1'][0]['1'][0]['1'] %>
+<br/>
+<%= @qsj['1'][0]["#{current_student.team_id}"][0]["#{current_student.player_number}"][0]['1'] %>

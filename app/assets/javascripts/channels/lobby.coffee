@@ -19,7 +19,7 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
     # reset the previously owned team if any
     for x in $(".pickTeamButton")
       if "#{x.value}" == "#{data['x']}"
-        console.logs("a previously owned button detected")
+        console.log("a previously owned button detected")
         x.value = x.id
 
     # change button label to be owned by current_student
