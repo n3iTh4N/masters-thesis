@@ -35,11 +35,19 @@ class LobbyChannel < ApplicationCable::Channel
     qid = Link.where(game_id: data['game_id']).
                       where(team_id: data['team_id']).
                       where(player_number: data['player_number']).
-                      where(series: data['series'])[0].id
-    qnext = Link.where(game_id: data['game_id']).
+                      where(series: data['series'])[0].question_id
+
+
+    qprime = Link.where(game_id: data['game_id']).
                       where(team_id: data['team_id']).
                       where(player_number: data['player_number']).
                       where(series: data['series'])[0].next
+
+    qnext = Link.where(game_id: data['game_id']).
+                      where(team_id: data['team_id']).
+                      where(player_number: data['player_number']).
+                      where(series: qprime)[0].question_id
+
     qans = Question.find(qid).answer
 
     if data['answerText'].to_s == qans.to_s
@@ -54,7 +62,7 @@ class LobbyChannel < ApplicationCable::Channel
       question_answer: qans,
       person_answer: data['answerText'],
       verdict: verdict,
-      next: qnext,
+      next: qprime,
       from: "correctanswer",
       student_cookie: data['studentCookie'],
       nextc: Question.find(qnext).content
