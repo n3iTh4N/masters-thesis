@@ -41,6 +41,7 @@ class LobbyChannel < ApplicationCable::Channel
                       where(player_number: data['player_number']).
                       where(series: data['series'])[0].next
     qans = Question.find(qid).answer
+
     if data['answerText'].to_s == qans.to_s
       verdict = "correct"
     else
@@ -55,7 +56,8 @@ class LobbyChannel < ApplicationCable::Channel
       verdict: verdict,
       next: qnext,
       from: "correctanswer",
-      student_cookie: data['studentCookie']
+      student_cookie: data['studentCookie'],
+      nextc: Question.find(qnext).content
     else
       ActionCable.server.broadcast 'lobby_channel',
       from: "wronganswer"

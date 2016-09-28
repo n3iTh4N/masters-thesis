@@ -30,6 +30,8 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
 
     if data['from'] == "correctanswer"
       alert("after processing answer")
+      alert(data['nextc'])
+      alert(data['next'])
       alert(data['question_id'])
       alert(data['question_answer'])
       alert(data['person_answer'])
@@ -40,7 +42,7 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
       alert($("#student-cookie").val())
 
       if $("#student-cookie").val() == data['student_cookie']
-        $("#questionPane").html(data['question_id'])
+        $("#questionPane").html(data['nextc'])
         $(".answerButton").attr("series",data['next'])
 
     if data['from'] == "wronganswer"
