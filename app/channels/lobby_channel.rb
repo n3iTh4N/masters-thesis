@@ -24,7 +24,7 @@ class LobbyChannel < ApplicationCable::Channel
     student: data['student'],
     i: data['i'],
     j: data['j'],
-    x: Student.find(data['student']).email,
+    x: Student.find(data['student']).first_name, #previously e-mail
     # Send the edited data to update views
     y: Student.find(data['student']).as_json,
     from: "pickTeam"

@@ -5,13 +5,15 @@ GAME: <%= @game_to_play %>
 SERIES: <%= @series %>
 
 <div id="questionPane">
-  <%= Question.find(
+  <%=
+  Question.find(
   Link.where(game_id: @game_to_play).
                     where(team_id: current_student.team_id).
                     where(player_number: current_student.player_number).
                     where(series: @series)[0].question_id
 
-  ).content %>
+  ).content
+  %>
 </div>
 
 <input type="text" class="answerText" value="">
