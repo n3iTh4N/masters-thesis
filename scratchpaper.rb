@@ -63,3 +63,7 @@ if data['from'] == "answer"
       @curr_ans = Question.where(id: dq)[0].answer
     %>
     </div>
+
+    <%= link_to "Join", inlobby_lobbies_path(controller: "lobbies", action: "inlobby", game_id: l.game_id, lobby_id: l.id, data-path-hover: "shit"), method: :post %>
+
+    <%= button_to l.name, {controller: "lobbies", action: "inlobby", game_id: l.game_id, lobby_id: l.id, method: :post}, {onlick: "play()"} %>

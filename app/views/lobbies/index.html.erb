@@ -1,4 +1,3 @@
-LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 
 <!-- [s567] scratch paper for page -->
 <!--
@@ -30,105 +29,25 @@ LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 	<script src="jsgrids/snap.svg-min.js"></script>
 <% end %>
 
+<center><p class="cute-header"> active lobbies </p></center>
 
-<% Lobby.all.each do |l| %>
-<%= button_to l.name, {controller: "lobbies", action: "inlobby", game_id: l.game_id, lobby_id: l.id, method: :post}, {onlick: "play()"} %>
-<% end %>
-
-
-
-			<!-- Top Navigation -->
-			<section id="grid" class="grid clearfix">
-				<a href="#" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
-					<figure>
-						<img src="img/2.png" />
-						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
-						<figcaption>
-							<h2>Crystalline</h2>
-							<p>Soko radicchio bunya nuts gram dulse.</p>
-							<button>View</button>
-						</figcaption>
-					</figure>
-				</a>
-				<a href="#" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
-					<figure>
-						<img src="img/4.png" />
-						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
-						<figcaption>
-							<h2>Cacophony</h2>
-							<p>Two greens tigernut soybean radish artichoke.</p>
-							<button>View</button>
-						</figcaption>
-					</figure>
-				</a>
-				<a href="#" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
-					<figure>
-						<img src="img/6.png" />
-						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
-						<figcaption>
-							<h2>Languid</h2>
-							<p>Beetroot water spinach okra water chestnut.</p>
-							<button>View</button>
-						</figcaption>
-					</figure>
-				</a>
-				<a href="#" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
-					<figure>
-						<img src="img/8.png" />
-						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
-						<figcaption>
-							<h2>Serene</h2>
-							<p>Water spinach arugula pea tatsoi.</p>
-							<button>View</button>
-						</figcaption>
-					</figure>
-				</a>
-				<a href="#" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
-					<figure>
-						<img src="img/1.png" />
-						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
-						<figcaption>
-							<h2>Nebulous</h2>
-							<p>Pea horseradish azuki bean lettuce.</p>
-							<button>View</button>
-						</figcaption>
-					</figure>
-				</a>
-				<a href="#" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
-					<figure>
-						<img src="img/3.png" />
-						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
-						<figcaption>
-							<h2>Iridescent</h2>
-							<p>A grape silver beet watercress potato.</p>
-							<button>View</button>
-						</figcaption>
-					</figure>
-				</a>
-				<a href="#" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
-					<figure>
-						<img src="img/5.png" />
-						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
-						<figcaption>
-							<h2>Resonant</h2>
-							<p>Chickweed okra pea winter purslane.</p>
-							<button>View</button>
-						</figcaption>
-					</figure>
-				</a>
-				<a href="#" data-path-hover="m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z">
-					<figure>
-						<img src="img/7.png" />
-						<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
-						<figcaption>
-							<h2>Zenith</h2>
-							<p>Salsify taro catsear garlic gram.</p>
-							<button>View</button>
-						</figcaption>
-					</figure>
-				</a>
-			</section>
-
+<section id="grid" class="grid clearfix">
+	<% Lobby.all.each do |l| %>
+		<%= link_to inlobby_lobbies_path(controller: "lobbies", action: "inlobby", game_id: l.game_id, lobby_id: l.id), {method: :post, data_path_hover: "m 0,0 0,47.7775 c 24.580441,3.12569 55.897012,-8.199417 90,-8.199417 34.10299,0 65.41956,11.325107 90,8.199417 L 180,0 z"} do %>
+				<div>
+				<figure>
+					<img src="imggrids/<%=rand(1..8)%>.png" />
+					<svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="m 0,0 0,171.14385 c 24.580441,15.47138 55.897012,24.75772 90,24.75772 34.10299,0 65.41956,-9.28634 90,-24.75772 L 180,0 0,0 z"/></svg>
+					<figcaption>
+						<h2 class="cute-p"><%= l.name %></h2>
+						<p>Click on this card to join this lobby. Play a game of <%= l.game.name %> prepared by Professor <%= l.teacher.first_name %></p>
+						<!-- <button>View</button> -->
+					</figcaption>
+				</figure>
+				</div>
+		 <% end %>
+	<% end %>
+</section>
 
 <script>
   (function() {
@@ -141,7 +60,7 @@ LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
         var s = Snap( el.querySelector( 'svg' ) ), path = s.select( 'path' ),
           pathConfig = {
             from : path.attr( 'd' ),
-            to : el.getAttribute( 'data-path-hover' )
+            to : el.getAttribute( 'data_path_hover' )
           };
 
         el.addEventListener( 'mouseenter', function() {
@@ -158,3 +77,5 @@ LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 
   })();
 </script>
+
+LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>

@@ -9,13 +9,23 @@
   <%= csrf_meta_tags %>
 </head>
 <!--<body onload="playOpeningTheme()">-->
-<body>
-<h6> page banner </h6>
+<body background="/imggrids/bg.jpg">
+  <h1></h1>
+<table width="70%" align="center">
+  <tr>
+    <td>
+      <% if student_signed_in? then %>
+        <font class="cute-p"> Hello there, <%= current_student.first_name %> </font>
+      <% end %>
+    </td>
+    <td align="right">
+      <%= link_to "Sign_up", new_student_registration_path, {:method => :get, class: "cute-p"} %>
+      <%= link_to "Sign_in", new_student_session_path, {:method => :get, class: "cute-p"} %>
+      <%= link_to "Sign_out", destroy_student_session_path, {:method => :delete, class: "cute-p"} %>
+    </td>
+  </tr>
+</table>
 
-<%= link_to "Sign_up", new_student_registration_path, :method => :get %>
-<%= link_to "Sign_in", new_student_session_path, :method =>:get %>
-<%= link_to "Sign_out", destroy_student_session_path, :method => :delete %>
-<%= link_to "students", students_path, :method => :get %>
 
 
 <!-- required by devise -->

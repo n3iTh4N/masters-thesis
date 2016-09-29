@@ -1,34 +1,51 @@
 <!-- <audio id="openingTheme" src="/assets/glass.mp3" ></audio> -->
 <%= hidden_field_tag "student-cookie", current_student.id, { :id => "student-cookie" } %>
 
-GAME BEING PLAYED: <%= @game_to_play.id %>
-LOGGED IN AS: <div id="studentAttr">
-<%= current_student.as_json %>
-</div>
+<!-- load the stylesheetsandscripts -->
+<% content_for :stylesheetsandscripts do %>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/cssgrids/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="/cssgrids/demo.css" />
+	<link rel="stylesheet" type="text/css" href="/cssgrids/component.css" />
+	<script src="/jsgrids/snap.svg-min.js"></script>
+<% end %>
 
-lobby name of student: <%= current_student.lobby.name %>
+<center><font class="cute-header"> join a team! </font></center>
 
 <br/>
 <% #print join buttons %>
-<table>
+<table width="70%" align="center">
 <tr>
 	<% for i in 1..@game_to_play.number_of_teams do %>
-		<td>
-		<% for j in 1..@game_to_play.players_per_team do %>
-			<input
-				type="button"
-				value="<%= i.to_s+j.to_s %>"
-				class="pickTeamButton"
-				id="<%= i.to_s+j.to_s %>"
-				i="<%= i.to_s %>"
-				j ="<%= j.to_s %>"
-			>
-			<br/>
-		<% end %>
+		<td align="center">
+			<font class="cute-p-p"> team <%= i %> </font></br>
+			<% for j in 1..@game_to_play.players_per_team do %>
+				<input
+					type="button"
+					value="<%= i.to_s+j.to_s %>"
+					class="pickTeamButton"
+					id="<%= i.to_s+j.to_s %>"
+					i="<%= i.to_s %>"
+					j ="<%= j.to_s %>"
+				>
+				<br/>
+			<% end %>
 		</td>
 	<% end %>
 </tr>
 </table>
 
 <% #start game button %>
+<center>
 <%= button_to "Start Game", {controller: "lobbies", action: "ingame", game: "#{@game_to_play.id}"} %>
+</center>
+
+
+GAME BEING PLAYED: <%= @game_to_play.id %>
+LOGGED IN AS: <div id="studentAttr">
+<%= current_student.as_json %>
+</div>
+
+lobby name of student: <%= current_student.lobby.name %>
