@@ -18,6 +18,19 @@ LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 <!-- [/axmr] list of audio needed for this page -->
 
 <!-- List all lobbies -->
+
+<!-- load the stylesheetsandscripts -->
+<% content_for :stylesheetsandscripts do %>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="cssgrids/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="cssgrids/demo.css" />
+	<link rel="stylesheet" type="text/css" href="cssgrids/component.css" />
+	<script src="jsgrids/snap.svg-min.js"></script>
+<% end %>
+
+
 <% Lobby.all.each do |l| %>
 <%= button_to l.name, {controller: "lobbies", action: "inlobby", game_id: l.game_id, lobby_id: l.id, method: :post}, {onlick: "play()"} %>
 <% end %>
