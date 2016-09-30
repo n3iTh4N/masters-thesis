@@ -15,7 +15,9 @@
   <tr>
     <td>
       <% if student_signed_in? then %>
-        <font class="cute-p"> Hello there, <%= current_student.first_name %> </font>
+        <font class="cute-p"> Hello there, <%= current_student.first_name %> </font><br/>
+        <!-- required by devise -->
+        <p class="notice cute-p"><%= notice %></p>
       <% end %>
     </td>
     <td align="right">
@@ -28,8 +30,7 @@
 
 
 
-<!-- required by devise -->
-<p class="notice"><%= notice %></p>
+
 
 
 

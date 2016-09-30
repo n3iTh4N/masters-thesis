@@ -53,5 +53,7 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   #config.action_cable.allowed_request_origins = ['http://0.0.0.0:3000']
   #config.action_cable.allowed_request_origins = ['http://localhost:3000']
-  config.action_cable.allowed_request_origins = ['http://192.168.254.101:3000','http://localhost:3000','http://0.0.0.0:3000','http://192.168.4.1:3000','http://192.168.4.101:3000','http://192.168.4.103:3000']
+  config.action_cable.allowed_request_origins = ['http://192.168.254.101:3000','http://localhost:3000','http://0.0.0.0:3000','http://192.168.4.1:3000','http://192.168.4.101:3000','http://192.168.4.102:3000','http://192.168.4.103:3000','http://192.168.4.104:3000','http://192.168.4.105:3000','http://192.168.4.106:3000']
+
+  config.web_console.whitelisted_ips = '0.0.0.0/0.0.0.0'
 end
