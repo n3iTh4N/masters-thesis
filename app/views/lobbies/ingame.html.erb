@@ -36,14 +36,16 @@ SERIES: <%= @series %>
 					<div class="grid__item" id="blue"><i class="fa fa-fw fa-image"></i></div>
 					<div class="grid__item" id="red"><i class="fa fa-fw fa-image"></i></div>
 					<div class="grid__item" id="orange"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					<!-- we can add new colors as we wish
+						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					-->
 </div>
 
 <input type="text" class="answerText" value="">
@@ -60,10 +62,10 @@ SERIES: <%= @series %>
 <!-- drop area and drop overlay -->
 <div id="drop-area" class="drop-area">
   <div>
-    <div class="drop-area__item" id="first" ans=""><div class="dummy"></div></div>
-    <div class="drop-area__item" id="second" ans=""><div class="dummy"></div></div>
-    <div class="drop-area__item" id="third" ans=""><div class="dummy"></div></div>
-    <div class="drop-area__item" id="fourth" ans=""><div class="dummy"></div></div>
+    <div class="drop-area__item" id="first" ans="0"><div class="dummy"></div></div>
+    <div class="drop-area__item" id="second" ans="0"><div class="dummy"></div></div>
+    <div class="drop-area__item" id="third" ans="0"><div class="dummy"></div></div>
+    <div class="drop-area__item" id="fourth" ans="0"><div class="dummy"></div></div>
   </div>
 </div>
 <div class="drop-overlay"></div>
@@ -87,9 +89,18 @@ SERIES: <%= @series %>
           // change the color of the receiving drag panel to the color of the box being dragged
           $("#" + el.id).css("background-color", $("#" + draggableEl.id).css("background-color") );
           // change the ans property of the droppables for concatenation
-          
+					$("#" + el.id).attr("ans", $("#" + draggableEl.id).attr("id") );
 
           // generate a concatenated answer
+					fans = ""
+					$('.drop-area__item').each(function(i, obj) {
+    				// console.log($(this).attr("ans"));
+						fans += $(this).attr("ans");
+					});
+					console.log(fans);
+
+					// set this concatenated answer as the new value of answerText
+					$(".answerText").val(fans);
 
           // show checkmark inside the droppabe element
           classie.add( instance.el, 'drop-feedback' );
