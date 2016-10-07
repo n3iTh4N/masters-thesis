@@ -1,3 +1,4 @@
+
 Teacher.create(
 	[
 		{first_name: 'Neithan', last_name: 'Casano'}

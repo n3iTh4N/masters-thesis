@@ -1,5 +1,19 @@
 <%= hidden_field_tag "student-cookie", current_student.id, { :id => "student-cookie" } %>
 
+<!-- load the stylesheetsandscripts -->
+<% content_for :stylesheetsandscripts do %>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/cssdrag/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="/fontsdrag/font-awesome-4.2.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/cssdrag/demo.css" />
+  <link rel="stylesheet" type="text/css" href="/cssdrag/bottom-area.css" />
+  <script src="/jsdrag/modernizr.custom.js"></script>
+  <script src="/jsdrag/draggabilly.pkgd.min.js"></script>
+	<script src="/jsdrag/dragdrop.js"></script>
+<% end %>
+
 LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 GAME: <%= @game_to_play %>
 SERIES: <%= @series %>
@@ -16,6 +30,22 @@ SERIES: <%= @series %>
   %>
 </div>
 
+<!-- what should be colored boxes -->
+<div id="grid" class="grid clearfix">
+					<div class="grid__item" id="green" mycolor="#1ca82f"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" id="blue"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" id="red"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" id="orange"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
+</div>
+
 <input type="text" class="answerText" value="">
 <input
   type="button"
@@ -26,3 +56,84 @@ SERIES: <%= @series %>
   team_id="<%=current_student.team_id%>"
   player_number="<%=current_student.player_number%>"
 >
+
+<!-- drop area and drop overlay -->
+<div id="drop-area" class="drop-area">
+  <div>
+    <div class="drop-area__item" id="first" ans=""><div class="dummy"></div></div>
+    <div class="drop-area__item" id="second" ans=""><div class="dummy"></div></div>
+    <div class="drop-area__item" id="third" ans=""><div class="dummy"></div></div>
+    <div class="drop-area__item" id="fourth" ans=""><div class="dummy"></div></div>
+  </div>
+</div>
+<div class="drop-overlay"></div>
+
+<!-- drag script for color boxes -->
+<script>
+  (function() {
+    var body = document.body,
+      dropArea = document.getElementById( 'drop-area' ),
+      droppableArr = [], dropAreaTimeout;
+
+    // initialize droppables
+    [].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
+      droppableArr.push( new Droppable( el, {
+        onDrop : function( instance, draggableEl ) {
+
+          // output the container being dragged on to and the thing being dragged
+          console.log(el.id);
+          console.log(draggableEl.id);
+
+          // change the color of the receiving drag panel to the color of the box being dragged
+          $("#" + el.id).css("background-color", $("#" + draggableEl.id).css("background-color") );
+          // change the ans property of the droppables for concatenation
+          
+
+          // generate a concatenated answer
+
+          // show checkmark inside the droppabe element
+          classie.add( instance.el, 'drop-feedback' );
+          clearTimeout( instance.checkmarkTimeout );
+          instance.checkmarkTimeout = setTimeout( function() {
+            classie.remove( instance.el, 'drop-feedback' );
+          }, 800 );
+          // ...
+        }
+      } ) );
+    } );
+
+    // initialize draggable(s)
+    [].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
+      new Draggable( el, droppableArr, {
+        draggabilly : { containment: document.body },
+        onStart : function() {
+          console.log(el.id);
+          $(".answerText").val(el.id);
+          // add class 'drag-active' to body
+          classie.add( body, 'drag-active' );
+          // clear timeout: dropAreaTimeout (toggle drop area)
+          clearTimeout( dropAreaTimeout );
+          // show dropArea
+          classie.add( dropArea, 'show' );
+        },
+        onEnd : function( wasDropped ) {
+          var afterDropFn = function() {
+            // hide dropArea
+            classie.remove( dropArea, 'show' );
+            // remove class 'drag-active' from body
+            classie.remove( body, 'drag-active' );
+          };
+
+          if( !wasDropped ) {
+            afterDropFn();
+          }
+          else {
+            // after some time hide drop area and remove class 'drag-active' from body
+            clearTimeout( dropAreaTimeout );
+            dropAreaTimeout = setTimeout( afterDropFn, 400 );
+          }
+        }
+      } );
+    } );
+  })();
+</script>
