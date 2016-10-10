@@ -1,3 +1,28 @@
+@font-face {
+    font-family: 'cute-font';
+    src:url('../fontsgrids/cute.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'cute-font-2';
+    src:url('../fontsgrids/cute2.ttf') format('truetype');
+}
+
+.cute-header {
+	font-family: 'cute-font';
+	font-size: 4em;
+	font-weight: 100;
+	opacity: 0.6;
+}
+
+.cute-header-formal {
+	font-family: 'cute-font-2';
+	font-size: 5em;
+	font-weight: 100;
+	opacity: 0.6;
+  color: #3498db;
+}
+
 #green {
 	background: #1ca82f;
 }

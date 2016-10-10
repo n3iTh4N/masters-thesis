@@ -12,56 +12,59 @@
   <script src="/jsdrag/modernizr.custom.js"></script>
   <script src="/jsdrag/draggabilly.pkgd.min.js"></script>
 	<script src="/jsdrag/dragdrop.js"></script>
+
 <% end %>
 
-LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
-GAME: <%= @game_to_play %>
-SERIES: <%= @series %>
 
-<div id="questionPane">
-  <%=
-  Question.find(
-  Link.where(game_id: @game_to_play).
-                    where(team_id: current_student.team_id).
-                    where(player_number: current_student.player_number).
-                    where(series: @series)[0].question_id
+<div id="questionPane" align="center">
+	<p class="cute-header-formal">
+	  <%=
+	  Question.find(
+	  Link.where(game_id: @game_to_play).
+	                    where(team_id: current_student.team_id).
+	                    where(player_number: current_student.player_number).
+	                    where(series: @series)[0].question_id
 
-  ).content
-  %>
+	  ).content
+	  %>
+	</p>
 </div>
+
 
 <!-- what should be colored boxes -->
 <div id="grid" class="grid clearfix">
-					<div class="grid__item" id="green" mycolor="#1ca82f"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item" id="blue"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item" id="red"><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item" id="orange"><i class="fa fa-fw fa-image"></i></div>
-					<!-- we can add new colors as we wish
-						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-						<div class="grid__item"><i class="fa fa-fw fa-image"></i></div>
-					-->
+					<div class="grid__item" id="green" mycolor="#1ca82f"><i class="fa fa-star-o"></i></div>
+					<div class="grid__item" id="blue"><i class="fa fa-star-o"></i></div>
+					<div class="grid__item" id="red"><i class="fa fa-star-o"></i></div>
+					<div class="grid__item" id="orange"><i class="fa fa-star-o"></i></div>
+
+					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
+					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
 </div>
 
-<input type="text" class="answerText" value="">
-<input
-  type="button"
-  class="answerButton"
-  value="Send!"
-  series="<%=@series%>"
-  game_id="<%=current_student.game_id%>"
-  team_id="<%=current_student.team_id%>"
-  player_number="<%=current_student.player_number%>"
->
+<input type="text" class="answerText" value="" hidden>
 
 <!-- drop area and drop overlay -->
 <div id="drop-area" class="drop-area">
   <div>
+		<div>
+			<input
+				type="button"
+				class="answerButton"
+				value="Submit!"
+				series="<%=@series%>"
+				game_id="<%=current_student.game_id%>"
+				team_id="<%=current_student.team_id%>"
+				player_number="<%=current_student.player_number%>"
+				hidden
+			>
+		</div>
     <div class="drop-area__item" id="first" ans="0"><div class="dummy"></div></div>
     <div class="drop-area__item" id="second" ans="0"><div class="dummy"></div></div>
     <div class="drop-area__item" id="third" ans="0"><div class="dummy"></div></div>
@@ -70,12 +73,28 @@ SERIES: <%= @series %>
 </div>
 <div class="drop-overlay"></div>
 
+LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
+GAME: <%= @game_to_play %>
+SERIES: <%= @series %>
+
 <!-- drag script for color boxes -->
 <script>
   (function() {
     var body = document.body,
       dropArea = document.getElementById( 'drop-area' ),
       droppableArr = [], dropAreaTimeout;
+
+		full = false;
+
+		// declare full as false upon onclick to body
+		$('.drop-area').click(function() {
+			// alert("h");
+			if (full){
+				full = false;
+				classie.remove( dropArea, 'show' );
+				$(".answerButton").hide();
+			}
+		});
 
     // initialize droppables
     [].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
@@ -109,6 +128,20 @@ SERIES: <%= @series %>
             classie.remove( instance.el, 'drop-feedback' );
           }, 800 );
           // ...
+
+					// check if all droppables have been colored
+					c = 0
+					$('.drop-area__item').each(function(i, obj) {
+    				// console.log($(this).attr("ans"));
+						if ($(this).attr("ans") == '0'){
+							c = c + 1;
+						}
+					});
+					if (c < 1){
+						console.log("full");
+						full = true
+					}
+
         }
       } ) );
     } );
@@ -130,7 +163,12 @@ SERIES: <%= @series %>
         onEnd : function( wasDropped ) {
           var afterDropFn = function() {
             // hide dropArea
-            classie.remove( dropArea, 'show' );
+						if (!full){
+            	classie.remove( dropArea, 'show' );
+						}
+						else{
+							$(".answerButton").show();
+						}
             // remove class 'drag-active' from body
             classie.remove( body, 'drag-active' );
           };

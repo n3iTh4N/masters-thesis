@@ -36,8 +36,8 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+  config.action_cable.url = 'wss:///protected-earth-64558.herokuapp.com/cable'
+  config.action_cable.allowed_request_origins = ['https://protected-earth-64558.herokuapp.com', /http:\/\/protected-earth-64558.herokuapp.com.*/, 'http://192.168.254.101:3000','http://localhost:3000','http://0.0.0.0:3000','http://192.168.4.1:3000','http://192.168.4.101:3000','http://192.168.4.102:3000','http://192.168.4.103:3000','http://192.168.4.104:3000','http://192.168.4.105:3000','http://192.168.4.106:3000','https://protected-earth-64558.herokuapp.com','http://protected-earth-64558.herokuapp.com']
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -83,8 +83,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  config.action_cable.allowed_request_origins = ['http://192.168.254.101:3000','http://localhost:3000','http://0.0.0.0:3000','http://192.168.4.1:3000','http://192.168.4.101:3000','http://192.168.4.102:3000','http://192.168.4.103:3000','http://192.168.4.104:3000','http://192.168.4.105:3000','http://192.168.4.106:3000','https://protected-earth-64558.herokuapp.com','http://protected-earth-64558.herokuapp.com']
 
   config.web_console.whitelisted_ips = '0.0.0.0/0.0.0.0'
 end

@@ -42,8 +42,15 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
       alert($("#student-cookie").val())
 
       if $("#student-cookie").val() == data['student_cookie']
-        $("#questionPane").html(data['nextc'])
+        $("#questionPane").html("<font class='cute-header-formal'>" + data['nextc'] + "</font>")
+
         $(".answerButton").attr("series",data['next'])
+
+        # reset drop-area__item colors and ans property
+        for x in $('.drop-area__item')
+          # console.log(x.style.backgroundColor)
+          x.style.backgroundColor = 'rgba(0, 0, 0, 0.09)'
+          x.setAttribute("ans", "0");
 
     if data['from'] == "wronganswer"
       alert("wronganswer")
