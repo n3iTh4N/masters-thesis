@@ -15,14 +15,6 @@ cancel_student_registration GET    /students/cancel(.:format)        devise/regi
                             PUT    /students(.:format)               devise/registrations#update
                             DELETE /students(.:format)               devise/registrations#destroy
                        root GET    /                                 lobbies#index
-                   teachers GET    /teachers(.:format)               teachers#index
-                            POST   /teachers(.:format)               teachers#create
-                new_teacher GET    /teachers/new(.:format)           teachers#new
-               edit_teacher GET    /teachers/:id/edit(.:format)      teachers#edit
-                    teacher GET    /teachers/:id(.:format)           teachers#show
-                            PATCH  /teachers/:id(.:format)           teachers#update
-                            PUT    /teachers/:id(.:format)           teachers#update
-                            DELETE /teachers/:id(.:format)           teachers#destroy
                    students GET    /students(.:format)               students#index
                             POST   /students(.:format)               students#create
                 new_student GET    /students/new(.:format)           students#new
@@ -57,4 +49,14 @@ cancel_student_registration GET    /students/cancel(.:format)        devise/regi
                             PATCH  /lobbies/:id(.:format)            lobbies#update
                             PUT    /lobbies/:id(.:format)            lobbies#update
                             DELETE /lobbies/:id(.:format)            lobbies#destroy
-                                   /cable                            #<ActionCable::Server::Base:0x52118a0 @mutex=#<Monitor:0x5211888 @mon_owner=nil, @mon_count=0, @mon_mutex=#<Mutex:0x5211840>>, @pubsub=nil, @worker_pool=nil, @event_loop=nil, @remote_connections=nil>
+      increategame_teachers POST   /teachers/increategame(.:format)  teachers#increategame
+     increatelobby_teachers POST   /teachers/increatelobby(.:format) teachers#increatelobby
+                   teachers GET    /teachers(.:format)               teachers#index
+                            POST   /teachers(.:format)               teachers#create
+                new_teacher GET    /teachers/new(.:format)           teachers#new
+               edit_teacher GET    /teachers/:id/edit(.:format)      teachers#edit
+                    teacher GET    /teachers/:id(.:format)           teachers#show
+                            PATCH  /teachers/:id(.:format)           teachers#update
+                            PUT    /teachers/:id(.:format)           teachers#update
+                            DELETE /teachers/:id(.:format)           teachers#destroy
+                                   /cable                            #<ActionCable::Server::Base:0x56d11b8 @mutex=#<Monitor:0x56d11a0 @mon_owner=nil, @mon_count=0, @mon_mutex=#<Mutex:0x56d1170>>, @pubsub=nil, @worker_pool=nil, @event_loop=nil, @remote_connections=nil>

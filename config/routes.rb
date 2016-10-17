@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   root 'lobbies#index'
 
-  resources :teachers
   resources :students
   resources :games
   resources :teams
@@ -13,6 +12,13 @@ Rails.application.routes.draw do
     collection do
       post :inlobby
       post :ingame
+    end
+  end
+
+  resources :teachers do
+    collection do
+      post :increategame
+      post :increatelobby
     end
   end
 
