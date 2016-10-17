@@ -1,6 +1,6 @@
 $ ->
   $(".generateButton").click ->
-    #console.log($("#teams").val())
+    console.log($("#teams").val())
     App.teacher.generateLayout(
       $("#teams").val(),
       $("#ppteam").val(),

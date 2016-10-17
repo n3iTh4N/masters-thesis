@@ -10,6 +10,10 @@ App.teacher = App.cable.subscriptions.create "TeacherChannel",
     console.log("we made it back")
     # alert("hey")
     $("#generationPane").html(data['generatedLayout'])
+    $.getScript("/jsdrag/modernizr.custom.js")
+    $.getScript("/jsdrag/draggabilly.pkgd.min.js")
+    $.getScript("/jsdrag/dragdrop.js")
+    $.getScript("/jsdrag/dynamic.js")
 
   generateLayout: (teams, ppteam, questions) ->
     @perform 'generateLayout',

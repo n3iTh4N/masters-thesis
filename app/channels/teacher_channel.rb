@@ -10,17 +10,31 @@ class TeacherChannel < ApplicationCable::Channel
 
   def generateLayout (data)
 
-    g = "<table>"
+    g = "<table border='1px' width='100%'>"
+      # generate team tr
       for i in 1..data['teams'].to_i do
         g += "<tr>"
-          g += "<td>"
+          g += "<td colspan='" + (data['questions'].to_i + 1).to_s + "'>"
             g += "TEAM #{i}"
           g += "</td>"
         g += "</tr>"
+        # generate rows per player that contains question boxes
         for j in 1..data['ppteam'].to_i do
           g += "<tr>"
-            g += "<td>"
+            g += "<td width='10%'>"
               g += "Player #{j}"
+              # generate question boxes
+              g += "<div id='drop-area'>"
+                # for k in 1..data['questions'].to_i do
+                  # g += "<td>"
+                  g += "<div>"
+                    for k in 1..data['questions'].to_i do
+                    g += "<div class='drop-area__item'><div class='dummy'></div></div>"
+                    end
+                  g += "</div>"
+                  # g += "</td>"
+                # end
+              g += "</div>"
             g += "</td>"
           g += "</tr>"
         end

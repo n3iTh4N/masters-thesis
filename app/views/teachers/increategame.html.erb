@@ -1,9 +1,115 @@
+    <div id="drop-area">
+      <div>
+        <div class="drop-area__item"><div class="dummy"></div></div>
+      </div>
+    </div>
+
+<!-- load the stylesheetsandscripts -->
+<% content_for :stylesheetsandscripts do %>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/cssdrag/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="/fontsdrag/font-awesome-4.2.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/cssdrag/demo.css" />
+  <link rel="stylesheet" type="text/css" href="/cssdrag/bottom-area.css" />
+  <script src="/jsdrag/modernizr.custom.js"></script>
+  <script src="/jsdrag/draggabilly.pkgd.min.js"></script>
+	<script src="/jsdrag/dragdrop.js"></script>
+
+<% end %>
+
 <%= @x %>
+
 <br/>
 <input type='text' id='teams' value='3'>
 <input type='text' id='ppteam' value='3'>
 <input type='text' id='questions' value='3'>
 
 <input type='button' class='generateButton' id='generateButton' value="generate!">
-<div id="generationPane">
+
+
+
+<table width="90%" align="center">
+  <tr>
+    <!-- td to hold graphs -->
+    <td width="80%" bgcolor="#01FF0000">
+      <div id="generationPane">
+      </div>
+    </td>
+    <!-- td to hold questions -->
+    <td width="20%" bgcolor="#FFFF00">
+      <div id="grid">
+      	<div class="grid__item"><i class="fa fa-fw fa-image"></i> This is a sample question </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<!--
+<div id="drop-area">
+	<div>
+		<div class="drop-area__item"><div class="dummy"></div></div>
+	</div>
+</div>
+    <div id="grid">
+    	<div class="grid__item"><i class="fa fa-fw fa-image"></i> This is a sample question </div>
+    </div>
+<div class="drop-overlay"></div>
+-->
+<div>
+<script>
+  (function() {
+    var body = document.body,
+      dropArea = document.getElementById( 'drop-area' ),
+      droppableArr = [], dropAreaTimeout;
+
+    // initialize droppables
+    [].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
+      droppableArr.push( new Droppable( el, {
+        onDrop : function( instance, draggableEl ) {
+          // show checkmark inside the droppabe element
+          classie.add( instance.el, 'drop-feedback' );
+          clearTimeout( instance.checkmarkTimeout );
+          instance.checkmarkTimeout = setTimeout( function() {
+            classie.remove( instance.el, 'drop-feedback' );
+          }, 800 );
+          // ...
+        }
+      } ) );
+    } );
+
+    // initialize draggable(s)
+    [].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
+      new Draggable( el, droppableArr, {
+        draggabilly : { containment: document.body },
+        onStart : function() {
+          // add class 'drag-active' to body
+          classie.add( body, 'drag-active' );
+          // clear timeout: dropAreaTimeout (toggle drop area)
+          clearTimeout( dropAreaTimeout );
+          // show dropArea
+          classie.add( dropArea, 'show' );
+        },
+        onEnd : function( wasDropped ) {
+          var afterDropFn = function() {
+            // hide dropArea
+            classie.remove( dropArea, 'show' );
+            // remove class 'drag-active' from body
+            classie.remove( body, 'drag-active' );
+          };
+
+          if( !wasDropped ) {
+            afterDropFn();
+          }
+          else {
+            // after some time hide drop area and remove class 'drag-active' from body
+            clearTimeout( dropAreaTimeout );
+            dropAreaTimeout = setTimeout( afterDropFn, 400 );
+          }
+        }
+      } );
+    } );
+  })();
+</script>
 </div>
