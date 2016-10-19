@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href="/cssdrag/normalize.css" />
   <link rel="stylesheet" type="text/css" href="/fontsdrag/font-awesome-4.2.0/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="/cssdrag/demo.css" />
-  <link rel="stylesheet" type="text/css" href="/cssdrag/bottom-area.css" />
+  <link rel="stylesheet" type="text/css" href="/cssdrag/bottom-area2.css" />
   <script src="/jsdrag/modernizr.custom.js"></script>
   <script src="/jsdrag/draggabilly.pkgd.min.js"></script>
 	<script src="/jsdrag/dragdrop.js"></script>
@@ -43,7 +43,7 @@
     <td width="20%" bgcolor="#FFFF00" valign="top">
       <div id="grid">
         <% for x in @questions do %>
-          <div class="grid__item" qid="<%=x.id%>" title="<%=x.content%>" content="<%=x.content%>"> <%= x.content[0..35].gsub(/\s\w+\s*$/, '...') %> </div>
+          <div class="grid__item" qid="<%=x.id%>" title="<%=x.content%>" content="<%=x.content%>"> <%= x.content[0..50].gsub(/\s\w+\s*$/, '...') %> </div>
         <% end %>
       </div>
     </td>
