@@ -9,4 +9,4 @@ $ ->
     )
 
   $(".grid__item").hover ->
-    console.log($(this).attr("qid"))
+    # console.log($(this).attr("qid"))

@@ -97,6 +97,7 @@
 }
 
 .drop-area {
+  vertical-align: top;
 	position: fixed;
 	top: 100%;
 	left: 0;
@@ -117,6 +118,7 @@
 }
 
 .drop-area > div {
+  vertical-align: top;
 	width: 100%;
 	height: 100%;
 	-webkit-transition: -webkit-transform 0.4s 0.3s;
@@ -131,17 +133,23 @@
 }
 
 .drop-area__item {
+  vertical-align: top;
 	position: relative;
 	display: inline-block;
 	margin: 1.25em 1% 1% 1%;
-	max-width: 13em;
+	/* max-width: 13em; */
+  max-width: 7em;
 	width: 20%;
-	height: 12em;
+	/* height: 12em; */
+  height: 6em;
 	border-radius: 4px;
 	background: rgba(0,0,0,0.1);
 	-webkit-transition: -webkit-transform 0.3s, background 0.3s;
 	transition: transform 0.3s, background 0.3s;
 	-webkit-backface-visibility: hidden;
+
+  overflow: hidden;         /* //prevent the text from being shown outside the border */
+  text-overflow: ellipsis;
 }
 
 .drop-area__item.highlight {
@@ -168,12 +176,14 @@
 }
 
 .drop-feedback.drop-area__item::before {
+  vertical-align:top;
 	opacity: 0;
 	-webkit-transform: scale3d(0,0,1);
 	transform: scale3d(0,0,1);
 }
 
 .drop-area__item::after {
+  vertical-align: top;
 	color: rgba(255,253,197,0.6);
 	content: '\f00c';
 	font-size: 3em;
@@ -186,6 +196,7 @@
 }
 
 .drop-feedback.drop-area__item::after {
+  vertical-align: top;
 	opacity: 1;
 	-webkit-transform: scale3d(1,1,1);
 	transform: scale3d(1,1,1);

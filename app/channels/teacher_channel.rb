@@ -29,7 +29,7 @@ class TeacherChannel < ApplicationCable::Channel
                   # g += "<td>"
                   g += "<div>"
                     for k in 1..data['questions'].to_i do
-                    g += "<div class='drop-area__item'><div class='dummy'></div></div>"
+                    g += "<div class='drop-area__item' title='hey' id=#{i.to_s+j.to_s+k.to_s} team=#{i} playernum=#{j} series=#{k} qid='0'></div>"
                     end
                   g += "</div>"
                   # g += "</td>"
