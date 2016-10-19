@@ -19,7 +19,9 @@
 
 <% end %>
 
-<%= @x %>
+<% for x in @questions do %>
+  <%= x.content %>
+<% end %>
 
 <br/>
 <input type='text' id='teams' value='3'>
@@ -40,7 +42,9 @@
     <!-- td to hold questions -->
     <td width="20%" bgcolor="#FFFF00">
       <div id="grid">
-      	<div class="grid__item"><i class="fa fa-fw fa-image"></i> This is a sample question </div>
+        <% for x in @questions do %>
+          <div class="grid__item" qid="<%=x.id%>" title="<%=x.content%>"> <%= x.content[0..35].gsub(/\s\w+\s*$/, '...') %> </div>
+        <% end %>
       </div>
     </td>
   </tr>
@@ -57,9 +61,15 @@
     </div>
 <div class="drop-overlay"></div>
 -->
-<div>
+
 <script>
   (function() {
+    $('.grid__item').each(function(i, obj) {
+      $(this).tooltip({
+        track: true
+      });
+    });
+
     var body = document.body,
       dropArea = document.getElementById( 'drop-area' ),
       droppableArr = [], dropAreaTimeout;
@@ -112,4 +122,3 @@
     } );
   })();
 </script>
-</div>

@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# add jquery ui for rails
+gem 'jquery-ui-rails'
 # add seed dump gem
 gem 'seed_dump'
 # user authentication gem

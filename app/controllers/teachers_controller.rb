@@ -4,7 +4,7 @@ class TeachersController < ApplicationController
 	end
 
 	def increategame
-		@x = "hey hey hey up tomorrow"
+		@questions = Question.order('id ASC')
 	end
 
 	def increatelobby
