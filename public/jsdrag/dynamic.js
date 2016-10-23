@@ -1,10 +1,50 @@
 (function() {
+
+  // save games
+  /*
+  $( ".saveGameButton" ).click(function() {
+    alert( "saveGameButton clicked" );
+    $('.drop-area__item').each(function(i, obj) {
+      console.log("777" + $(this).attr('team') + " " + $(this).attr('playernum')
+                        + " " + $(this).attr('series') + " " + $(this).attr('next')
+                        + " " + $(this).attr('qid'));
+    });
+  });
+  */
+
+  $('.saveGameButton').unbind('click').bind('click', function (e) {
+
+    console.log( "saveGameButton clicked");
+    var links = [];
+    $('.drop-area__item').each(function(i, obj) {
+      /*
+      x = "{'game_id': '777', " + "'team_id': " + $(this).attr('team') + ", 'player_number': " + $(this).attr('playernum')
+                        + ", 'series': " + $(this).attr('series') + ", 'next': " + $(this).attr('next')
+                        + ", 'qid': " + $(this).attr('qid') + "}"
+                        */
+      var obj = { "game_id" : $("#gameid").val(),
+                  "team_id" : $(this).attr("team"),
+                  "player_number" : $(this).attr("playernum"),
+                  "series" : $(this).attr("series"),
+                  "question_id" : $(this).attr("qid"),
+                  "next" : $(this).attr("next")
+      };
+      // saveLink(obj.game_id, obj.team_id, obj.player_number, obj.series, obj.question_id, obj.next_);
+      // push obj to links array
+      links.push(obj);
+    });
+    // alert(links[0].game_id);
+    saveLinks(links);
+  });
+
+  // set tooltip to draggables
   $('.grid__item').each(function(i, obj) {
     $(this).tooltip({
       track: true
     });
   });
 
+  // set tooltip to droppables
   $('.drop-area__item').each(function(i, obj) {
     $(this).tooltip({
       track: true
@@ -12,7 +52,7 @@
     $(this).html(" ⋆ ");
   });
 
-  // search
+  // regex search for questions
   var $rows = $('#searchtable tr');
   $('#search').keyup(function() {
 

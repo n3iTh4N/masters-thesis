@@ -8,6 +8,25 @@ class TeacherChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
+  # data[links], data['from']
+  def saveLinks (data)
+    for link in data['links'] do
+      x = Link.new
+      x.id = Link.maximum(:id).next
+      x.game_id = link['game_id'].to_i
+      x.team_id = link['team_id'].to_i
+      x.player_number = link['player_number'].to_i
+      x.series = link['series'].to_i
+      x.question_id = link['question_id'].to_i
+      x.next = link['next'].to_i
+      x.save
+    end
+
+    ActionCable.server.broadcast 'teacher_channel',
+    from: data['from'],
+    message: "committed to database"
+  end
+
   def generateLayout (data)
 
     g = "<table border='1px' width='100%'>"
@@ -29,7 +48,7 @@ class TeacherChannel < ApplicationCable::Channel
                   # g += "<td>"
                   g += "<div>"
                     for k in 1..data['questions'].to_i do
-                    g += "<div class='drop-area__item' title='hey' id=#{i.to_s+j.to_s+k.to_s} team=#{i} playernum=#{j} series=#{k} qid='0'></div>"
+                    g += "<div class='drop-area__item' title='hey' id=#{i.to_s+j.to_s+k.to_s} team=#{i} playernum=#{j} series=#{k} qid='0' next=#{k+1}></div>"
                     end
                   g += "</div>"
                   # g += "</td>"
@@ -43,6 +62,7 @@ class TeacherChannel < ApplicationCable::Channel
 
 
     ActionCable.server.broadcast 'teacher_channel',
-    generatedLayout: g
+    generatedLayout: g,
+    from: data['from']
   end
 end

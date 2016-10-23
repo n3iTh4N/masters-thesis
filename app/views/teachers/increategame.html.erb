@@ -1,6 +1,6 @@
-    <div id="drop-area">
-      <div>
-        <div class="drop-area__item"><div class="dummy"></div></div>
+    <div id="drop-area" hidden>
+      <div hidden>
+        <div class="drop-area__item" hidden></div>
       </div>
     </div>
 
@@ -30,8 +30,8 @@
 <input type='text' id='ppteam' value='3'>
 <input type='text' id='questions' value='3'>
 <input type='text' id='search' placeholder="search">
-
 <input type='button' class='generateButton' id='generateButton' value="generate!">
+<input type='button' class='saveGameButton' id='saveGameButton' value="Save Game">
 
 <div id="checker">
 </div>
@@ -51,7 +51,7 @@
             <tr>
               <td>
                 <div id="grid">
-                <div class="grid__item" qid="<%=x.id%>" title="<%=x.content%>" content="<%=x.content%>"> <%= x.content[0..50].gsub(/\s\w+\s*$/, '...') %> </div>
+                <div class="grid__item" qid="<%=x.id%>" title="<%=x.content%>" content="<%=x.content%>" > <%= x.content[0..50].gsub(/\s\w+\s*$/, '...') %> </div>
                 </div>
               </td>
             </tr>
