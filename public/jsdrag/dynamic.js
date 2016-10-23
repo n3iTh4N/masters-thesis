@@ -35,6 +35,7 @@
     });
     // alert(links[0].game_id);
     saveLinks(links);
+    saveGame($("#gamename").val(), $("#teams").val(), $("#ppteam").val());
   });
 
   // set tooltip to draggables

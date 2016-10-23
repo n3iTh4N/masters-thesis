@@ -77,7 +77,34 @@ LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 GAME: <%= @game_to_play %>
 SERIES: <%= @series %>
 
+<!-- Script for NFC Scan -->
+<script>
+	// upon NFC scan
+	function passNFC(tag){
+		// scan NFC value in the format A,B,C,D and put it in Array
+		var array = tag.split(',');
 
+		// concatenate the array and store it in answerText
+		nfcans = "";
+		for (s of array){
+			nfcans += s;
+		}
+		// alert(nfcans);
+		// set this concatenated answer as the new value of answerText
+		$(".answerText").val(nfcans);
+
+		$('.drop-area__item').each(function(i, obj) {
+			$(this).css("background-color", $("#" + array[i]).css("background-color"));
+		});
+
+		// set full to true
+		full = true;
+
+		// show dropArea
+		classie.add( dropArea, 'show' );
+
+	}
+</script>
 
 <!-- drag script for color boxes -->
 <script>
@@ -187,44 +214,4 @@ SERIES: <%= @series %>
       } );
     } );
   })();
-</script>
-
-<!-- Script for NFC Scan -->
-<script>
-	// upon NFC scan
-	function passNFC(tag){
-
-		var dropArea = document.getElementById( 'drop-area' );
-
-		// scan NFC value in the format A,B,C,D and put it in Array
-		var array = tag.split(',');
-
-		// concatenate the array and store it in answerText
-		nfcans = "";
-		for (s of array){
-			nfcans += s;
-		}
-		// alert(nfcans);
-		// set this concatenated answer as the new value of answerText
-		$(".answerText").val(nfcans);
-
-		$('.drop-area__item').each(function(i, obj) {
-			$(this).css("background-color", $("#" + array[i]).css("background-color"));
-			// update ans
-			$(this).attr("ans", array[i]);
-		});
-
-		// set full to true
-		full = true;
-
-			if (!full){
-				classie.remove( dropArea, 'show' );
-			}
-			else{
-				classie.add(dropArea, 'show');
-				$(".answerButton").show();
-			}
-
-
-	}
 </script>

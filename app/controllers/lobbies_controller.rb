@@ -20,7 +20,7 @@ class LobbiesController < ApplicationController
 		Student.where(id: current_student.id).update_all(lobby_id: params[:lobby_id])
 
 		# load the game that the lobby was set to have by the teacher
-		@game_to_play = Game.find(params[:lobby_id])
+		@game_to_play = Game.find(Lobby.find(params[:lobby_id]).game_id)
 		Student.where(id: current_student.id).update_all(game_id: @game_to_play.id)
 	end
 

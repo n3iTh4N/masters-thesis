@@ -26,6 +26,12 @@ App.teacher = App.cable.subscriptions.create "TeacherChannel",
     links: links,
     from: from
 
+  saveGame: (gameName, teams, ppteam, from) ->
+    @perform 'saveGame',
+    gameName: gameName,
+    teams: teams,
+    ppteam: ppteam,
+    from: from
 
   generateLayout: (teams, ppteam, questions, from) ->
     @perform 'generateLayout',

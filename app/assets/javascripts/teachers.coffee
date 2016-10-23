@@ -18,3 +18,11 @@ $ ->
       links,
       "saveLinks"
     )
+
+  window.saveGame = (gameName, teams, ppteam) ->
+    App.teacher.saveGame(
+      gameName,
+      teams,
+      ppteam,
+      "saveGame"
+    )

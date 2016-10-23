@@ -8,12 +8,29 @@ class TeacherChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
+  def saveGame (data)
+
+    x = Game.new
+    x.id = Game.maximum(:id).next
+    x.name = data['gameName']
+    x.number_of_teams = data['teams']
+    x.players_per_team = data['ppteam']
+    x.playing = "false"
+    x.save
+
+    ActionCable.server.broadcast 'teacher_channel',
+    from: data['from'],
+    message: "game saved"
+  end
+
   # data[links], data['from']
   def saveLinks (data)
+
+    g = Game.maximum(:id).next
     for link in data['links'] do
       x = Link.new
       x.id = Link.maximum(:id).next
-      x.game_id = link['game_id'].to_i
+      x.game_id = g
       x.team_id = link['team_id'].to_i
       x.player_number = link['player_number'].to_i
       x.series = link['series'].to_i

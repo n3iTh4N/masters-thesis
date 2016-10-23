@@ -24,7 +24,7 @@
 <% end %>
 
 <br/>
-<input type='text' id='gameid' placeholder="Give your game a unique id if you want">
+<input type='text' id='gameid' value="<%= Link.maximum(:game_id).next %>" hidden>
 <input type='text' id='gamename' placeholder="Name your game">
 <input type='text' id='teams' value='3'>
 <input type='text' id='ppteam' value='3'>
