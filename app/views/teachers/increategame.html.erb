@@ -24,15 +24,19 @@
 <% end %>
 
 <br/>
+<input type='text' id='gameid' placeholder="Give your game a unique id if you want">
+<input type='text' id='gamename' placeholder="Name your game">
 <input type='text' id='teams' value='3'>
 <input type='text' id='ppteam' value='3'>
 <input type='text' id='questions' value='3'>
+<input type='text' id='search' placeholder="search">
 
 <input type='button' class='generateButton' id='generateButton' value="generate!">
 
+<div id="checker">
+</div>
 
-
-<table width="90%" align="center">
+<table width="90%" height="600px" align="center">
   <tr>
     <!-- td to hold graphs -->
     <td width="80%" bgcolor="#01FF0000" valign="top">
@@ -41,11 +45,19 @@
     </td>
     <!-- td to hold questions -->
     <td width="20%" bgcolor="#FFFF00" valign="top">
-      <div id="grid">
-        <% for x in @questions do %>
-          <div class="grid__item" qid="<%=x.id%>" title="<%=x.content%>" content="<%=x.content%>"> <%= x.content[0..50].gsub(/\s\w+\s*$/, '...') %> </div>
-        <% end %>
-      </div>
+      <table id="searchtable" border="1px">
+        <!-- <div id="grid"> -->
+          <% for x in @questions do %>
+            <tr>
+              <td>
+                <div id="grid">
+                <div class="grid__item" qid="<%=x.id%>" title="<%=x.content%>" content="<%=x.content%>"> <%= x.content[0..50].gsub(/\s\w+\s*$/, '...') %> </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        <!-- </div> -->
+      </table>
     </td>
   </tr>
 </table>

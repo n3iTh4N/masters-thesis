@@ -12,6 +12,20 @@
     $(this).html(" ⋆ ");
   });
 
+  // search
+  var $rows = $('#searchtable tr');
+  $('#search').keyup(function() {
+
+      var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+          reg = RegExp(val, 'i'),
+          text;
+
+      $rows.show().filter(function() {
+          text = $(this).text().replace(/\s+/g, ' ');
+          return !reg.test(text);
+      }).hide();
+  });
+
   var body = document.body,
     dropArea = document.getElementById( 'drop-area' ),
     droppableArr = [], dropAreaTimeout;
@@ -38,6 +52,15 @@
 
         // output changed droppable
         console.log(el);
+
+        var c = "";
+        $('.drop-area__item').each(function(i, obj) {
+          c += $(this).attr("qid");
+        });
+        // update checker div
+        $("#checker").html(
+          c
+        );
 
         // show checkmark inside the droppabe element
         classie.add( instance.el, 'drop-feedback' );
