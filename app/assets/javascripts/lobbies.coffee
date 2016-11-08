@@ -25,6 +25,7 @@
         console.log($(this).attr("team_id"))
         console.log($(this).attr("player_number"))
         console.log($(this).attr("series"))
+        $('.tutorialPane').html("");
 
         # add params in order
         App.lobby.answer(

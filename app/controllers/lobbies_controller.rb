@@ -8,9 +8,10 @@ class LobbiesController < ApplicationController
 		# reset lobby ID of current_student
 		current_student.lobby_id = 0
 		current_student.save
-		Student.where(id: current_student.id).update_all(team_id: 0)
-    Student.where(id: current_student.id).update_all(player_number: 0)
-		Student.where(id: current_student.id).update_all(game_id: 0)
+		Student.where(id: current_student.id).update_all(team_id: 0) 								# update team id to 0
+    Student.where(id: current_student.id).update_all(player_number: 0)					# update player_number to 0
+		Student.where(id: current_student.id).update_all(game_id: 0)								# update game_id to 0
+		Student.where(id: current_student.id).update_all(progress: 0)								# update progress to 0
 	end
 
 	def inlobby

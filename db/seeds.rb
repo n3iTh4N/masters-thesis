@@ -10,7 +10,7 @@ Student.create(
 		{
 			first_name: 	'Jaiden',
 			last_name: 		'Animations',
-			player_number: 	1,
+			player_number: 	1,	
 			lobby_id: 		1,
 			device_id: 		1,
 			team_id: 		1,

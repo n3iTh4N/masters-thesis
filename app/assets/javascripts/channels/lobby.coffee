@@ -47,6 +47,22 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
       console.log(data['student_cookie'])
       console.log($("#student-cookie").val())
 
+
+
+      # update broadcasted progress bars for team
+      $("##{data['student_cookie']}").children().animate({
+        width: "#{data['cprogress'] / data['qcount'] * 100}%";
+      }, 500);
+      # change color of progress bar from red to green
+      # calculate red
+      r = 255 - ((data['cprogress'] / data['qcount'] * 100) / 100 * 255);
+      # calculate green
+      g = (data['cprogress'] / data['qcount'] * 100) / 100 * 255;
+      # ui effects for correct answer
+      $("##{data['student_cookie']}").children().css("background", "rgb(" + r + "," + g + ",0)");
+      $("##{data['student_cookie']}").effect( "pulsate", 500);
+      $("##{data['student_cookie']}").children().effect("highlight", 1000);
+
       if $("#student-cookie").val() == data['student_cookie']
         $("#questionPane").html("<font class='cute-question-number'>question " + data['next'] + "</font><br/><font class='cute-header-formal'>" + data['nextc'] + "</font>")
 
@@ -58,9 +74,38 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
           x.style.backgroundColor = 'rgba(0, 0, 0, 0.09)'
           x.setAttribute("ans", "0");
 
+        # update progress bar for player
+        #$("#myprogressbar").progressbar({
+        #        value: data['cprogress'] / data['qcount'] * 100
+        #});
+
+        # update the progress bar ot the player
+        $("#myprogressbar").children().animate({
+          width: "#{data['cprogress'] / data['qcount'] * 100}%";
+        }, 500);
+
+        # change color of progress bar from red to green
+        # calculate red
+        r = 255 - ((data['cprogress'] / data['qcount'] * 100) / 100 * 255);
+        # calculate green
+        g = (data['cprogress'] / data['qcount'] * 100) / 100 * 255;
+
+        # ui effects for correct answer
+        $('#myprogressbar').children().css("background", "rgb(" + r + "," + g + ",0)");
+        $('#myprogressbar').effect( "pulsate", 500);
+        $("#questionPane").effect("explode", 300);
+        $('#questionPane').effect( "highlight", 1000);
+        $('#myprogressbar').children().effect("highlight", 1000);
+
+
     if data['from'] == "wronganswer"
       if $("#student-cookie").val() == data['student_cookie']
-        alert("Incorrect answer. Please try again.")
+        console.log("Incorrect answer. Please try again.")
+        #ui effects for wrong answer
+        $('#questionPane').effect( "shake", 500);
+        $('.tutorialPane').html("<p class='cute-tooltip'>Wrong answer. Please try another combination! :)</p>");
+        $('.tutorialPane').effect("pulsate", 1000);
+        $('.tutorialPane').effect("highlight", 2000);
 
   enter: (student)->
     @perform 'enter', student: student

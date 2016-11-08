@@ -55,6 +55,10 @@ class LobbyChannel < ApplicationCable::Channel
 
     qans = Question.find(qid).answer
 
+    # find the total number of questions in game
+    tqig = Game.find(data['game_id']).questioncount
+
+
     if data['answerText'].to_s == qans.to_s
       verdict = "correct"
     else
@@ -62,6 +66,10 @@ class LobbyChannel < ApplicationCable::Channel
     end
 
     if verdict == "correct"
+
+      # update progress column in students table to be requeried after broadcast
+      Student.where(id: data['studentCookie']).update_all(progress: Student.find(data['studentCookie']).progress+1)
+
       ActionCable.server.broadcast 'lobby_channel',
       question_id: qid,
       question_answer: qans,
@@ -70,7 +78,9 @@ class LobbyChannel < ApplicationCable::Channel
       next: qprime,
       from: "correctanswer",
       student_cookie: data['studentCookie'],
-      nextc: Question.find(qnext).content
+      nextc: Question.find(qnext).content,
+      qcount: tqig,
+      cprogress: Student.find(data['studentCookie']).progress
     else
       ActionCable.server.broadcast 'lobby_channel',
       from: "wronganswer",

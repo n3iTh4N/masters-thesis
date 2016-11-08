@@ -21,6 +21,34 @@
 	<link rel="stylesheet" type="text/css" href="/cssbuttons/buttons.css" />
 <% end %>
 
+<!-- Progress Bar -->
+
+<div class="grid clearfix" align="center">
+	<table width="100%">
+		<tr>
+			<td width="10%">
+				<%= current_student.first_name %>
+			</td>
+			<td>
+				<div id="myprogressbar" align="center"></div>
+			</td>
+		</tr>
+
+		<% a = Student.where(lobby_id: current_student.lobby_id).where.not(id: current_student.id).where(team_id: current_student.team_id) %>
+		<% a.each do |a| %>
+			<tr>
+				<td>
+					<%= a.first_name %>
+				</td>
+				<td>
+					<div id="<%=a.id.to_s%>" class="teambars" align="center"></div>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+<br/>
+
 <div id="grid" class="grid clearfix" align="center" border="1px">
 	<div id="questionPane" align="center">
 		<font class="cute-question-number">
@@ -107,9 +135,42 @@
 </div>
 <div class="drop-overlay"></div>
 
+<div id="teamprogress">
+	<%=
+	a = Student.where(lobby_id: current_student.lobby_id).where.not(id: current_student.id)
+	a.each do |a|
+		a.as_json
+	end
+	%>
+</div>
+<div id="allprogress"></div>
+
 LOGGED IN AS: <%= if student_signed_in? then current_student.as_json end%>
 GAME: <%= @game_to_play %>
 SERIES: <%= @series %>
+
+
+<!-- Script for my progress bar -->
+<script>
+	$(function() {
+
+				// highlight the instructions onloac
+				$(".tutorialPane").effect("pulsate", 1000);
+				$(".tutorialPane").effect("highlight", 1000);
+
+        $("#myprogressbar").progressbar({
+                value: 1
+        });
+				// $("#myprogressbar").css({ 'background': 'green' });
+				$("#myprogressbar").height(20);
+
+				// init team bars
+				$(".teambars").progressbar({
+					value: 1,
+				});
+				$(".teambars").height(20);
+  });
+</script>
 
 <!-- Script for NFC Scan -->
 <script>

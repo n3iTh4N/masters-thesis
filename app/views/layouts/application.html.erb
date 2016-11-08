@@ -20,7 +20,7 @@
         <p class="notice cute-p"><%= notice %></p>
       <% end %>
     </td>
-    <td align="right">
+    <td align="right" vertical-align="top">
       <%= link_to "Sign_up", new_student_registration_path, {:method => :get, class: "cute-p"} %>
       <%= link_to "Sign_in", new_student_session_path, {:method => :get, class: "cute-p"} %>
       <%= link_to "Sign_out", destroy_student_session_path, {:method => :delete, class: "cute-p"} %>
