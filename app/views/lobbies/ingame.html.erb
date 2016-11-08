@@ -12,41 +12,71 @@
   <script src="/jsdrag/modernizr.custom.js"></script>
   <script src="/jsdrag/draggabilly.pkgd.min.js"></script>
 	<script src="/jsdrag/dragdrop.js"></script>
-
+	<!-- for the font -->
+	<link rel="stylesheet" type="text/css" href="/cssgrids/demo.css" />
+	<!-- for the buttons -->
+	<link rel="stylesheet" type="text/css" href="/cssbuttons/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="/cssbuttons/vicons-font.css" />
+	<link rel="stylesheet" type="text/css" href="/cssbuttons/base.css" />
+	<link rel="stylesheet" type="text/css" href="/cssbuttons/buttons.css" />
 <% end %>
 
+<div id="grid" class="grid clearfix" align="center" border="1px">
+	<div id="questionPane" align="center">
+		<font class="cute-question-number">
+			question #
+			<%=
+			Link.where(game_id: @game_to_play).
+												where(team_id: current_student.team_id).
+												where(player_number: current_student.player_number).
+												where(series: @series)[0].series
+			%>
+		</font>
+		<br/>
+		<font class="cute-header-formal">
+		  <%=
+		  Question.find(
+		  Link.where(game_id: @game_to_play).
+		                    where(team_id: current_student.team_id).
+		                    where(player_number: current_student.player_number).
+		                    where(series: @series)[0].question_id
 
-<div id="questionPane" align="center">
-	<p class="cute-header-formal">
-	  <%=
-	  Question.find(
-	  Link.where(game_id: @game_to_play).
-	                    where(team_id: current_student.team_id).
-	                    where(player_number: current_student.player_number).
-	                    where(series: @series)[0].question_id
-
-	  ).content
-	  %>
-	</p>
+		  ).content
+		  %>
+		</font>
+	</div>
 </div>
 
+<div id="grid" class="grid clearfix" align="center">
+
+		<div class="tutorialPane" align="center" firstdrag="0" firstfull="0" firstsubmit="0">
+			<p class="cute-tooltip">
+				To answer the question<br/>
+				drag the colored boxes below to make a combination <br/>
+				or scan your objects via NFC
+			</p>
+		</div>
+
+</div>
 
 <!-- what should be colored boxes -->
-<div id="grid" class="grid clearfix">
+<div id="grid" class="grid clearfix" align="center">
 					<div class="grid__item" id="green" mycolor="#1ca82f"><i class="fa fa-star-o"></i></div>
 					<div class="grid__item" id="blue"><i class="fa fa-star-o"></i></div>
 					<div class="grid__item" id="red"><i class="fa fa-star-o"></i></div>
 					<div class="grid__item" id="orange"><i class="fa fa-star-o"></i></div>
 					<div class="grid__item" id="black"><i class="fa fa-star-o"></i></div>
+					<div class="grid__item" id="violet"><i class="fa fa-star-o"></i></div>
+					<div class="grid__item" id="torquoise"><i class="fa fa-star-o"></i></div>
+					<div class="grid__item" id="pink"><i class="fa fa-star-o"></i></div>
 
+<!--
 					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
 					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
 					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
 					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
 					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
-					<div class="grid__item" hidden ><i class="fa fa-fw fa-image"></i></div>
+				-->
 </div>
 
 <input type="text" class="answerText" value="" hidden>
@@ -54,6 +84,9 @@
 <!-- drop area and drop overlay -->
 <div id="drop-area" class="drop-area">
   <div>
+		<p id="tutorialPane2" class="cute-tooltip">
+			Arrange the colors here
+		</p>
 		<div>
 			<input
 				type="button"
@@ -66,10 +99,10 @@
 				hidden
 			>
 		</div>
-    <div class="drop-area__item" id="first" ans="0"><div class="dummy"></div></div>
-    <div class="drop-area__item" id="second" ans="0"><div class="dummy"></div></div>
-    <div class="drop-area__item" id="third" ans="0"><div class="dummy"></div></div>
-    <div class="drop-area__item" id="fourth" ans="0"><div class="dummy"></div></div>
+    <div class="drop-area__item" id="first" ans="0"></div>
+    <div class="drop-area__item" id="second" ans="0"></div>
+    <div class="drop-area__item" id="third" ans="0"></div>
+    <div class="drop-area__item" id="fourth" ans="0"></div>
   </div>
 </div>
 <div class="drop-overlay"></div>
@@ -81,10 +114,11 @@ SERIES: <%= @series %>
 <!-- Script for NFC Scan -->
 <script>
 	// upon NFC scan
+
 	function passNFC(tag){
+		console.log("NFC!");
 		// scan NFC value in the format A,B,C,D and put it in Array
 		var array = tag.split(',');
-
 		// concatenate the array and store it in answerText
 		nfcans = "";
 		for (s of array){
@@ -102,7 +136,9 @@ SERIES: <%= @series %>
 		full = true;
 
 		// show dropArea
+		var dropArea = document.getElementById( 'drop-area' );
 		classie.add( dropArea, 'show' );
+		$('.answerButton').show();
 
 	}
 </script>
@@ -123,6 +159,13 @@ SERIES: <%= @series %>
 				full = false;
 				classie.remove( dropArea, 'show' );
 				$(".answerButton").hide();
+			}
+		});
+
+		$('.answerButton').click(function(){
+			if ($('.tutorialPane').attr("firstsubmit") == "0"){
+				$('#tutorialPane2').html("");
+				$('.tutorialPane').attr("firstsubmit","1");
 			}
 		});
 
@@ -189,6 +232,12 @@ SERIES: <%= @series %>
           clearTimeout( dropAreaTimeout );
           // show dropArea
           classie.add( dropArea, 'show' );
+
+					// change value in tutorial pane
+					if ($(".tutorialPane").attr("firstdrag") == "0"){
+						// $(".tutorialPane").html("<p></p>");
+						$(".tutorialPane").attr("firstdrag", "1");
+					}
         },
         onEnd : function( wasDropped ) {
           var afterDropFn = function() {
@@ -198,6 +247,13 @@ SERIES: <%= @series %>
 						}
 						else{
 							$(".answerButton").show();
+
+							// edit tutorial pane during firt full
+							if ($(".tutorialPane").attr("firstfull") == "0"){
+								$("#tutorialPane2").html("Submit your color code to see if you found the correct object using the button below!<br/> or click anywhere in this yellow area to submit another combination");
+								$(".tutorialPane").html("<p></p>");
+								$(".tutorialPane").attr("firstfull", "1");
+							}
 						}
             // remove class 'drag-active' from body
             classie.remove( body, 'drag-active' );

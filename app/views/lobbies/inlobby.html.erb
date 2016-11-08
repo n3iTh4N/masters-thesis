@@ -39,7 +39,7 @@
 
 <% #start game button %>
 <center>
-<%= button_to "Start Game", {controller: "lobbies", action: "ingame", game: "#{@game_to_play.id}"} %>
+<%= button_to "Start Game", {controller: "lobbies", action: "ingame", game: "#{@game_to_play.id}"}, {class: "submitLobby", clicked: "0", hidden: true} %>
 </center>
 
 
@@ -49,3 +49,24 @@ LOGGED IN AS: <div id="studentAttr">
 </div>
 
 lobby name of student: <%= current_student.lobby.name %>
+<script>
+(function() {
+	/*
+	$('.submitLobby').unbind('click').bind('click', function (e) {
+		$('.submitLobby').attr("clicked","1");
+		e.stopPropagation();
+		broadcastSubmitLobbyClick();
+	});
+	*/
+
+	$(document).keypress(function(e) {
+	  if(e.which == 13) {
+			console.log("keypress this!");
+	    $('.submitLobby').attr("hidden",false);
+			broadcastSubmitLobbyClick();
+	  }
+	});
+
+})();
+
+</script>

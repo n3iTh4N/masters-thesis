@@ -7,6 +7,12 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
 
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
+
+    if data['from'] == "submitLobby"
+      console.log("gotBackFromSubmitLobby")
+      console.log($(".submitLobby").attr("clicked"))
+      $(".submitLobby").attr("hidden",false)
+
     # alert(data)
     if data['from'] == "pickTeam"
       console.log(data['teamButton'])
@@ -29,20 +35,20 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
       $("#studentAttr").html(JSON.stringify(data['y']))
 
     if data['from'] == "correctanswer"
-      alert("after processing answer")
-      alert(data['nextc'])
-      alert(data['next'])
-      alert(data['question_id'])
-      alert(data['question_answer'])
-      alert(data['person_answer'])
-      alert(data['verdict'])
-      alert(data['next'])
-      alert("cookies")
-      alert(data['student_cookie'])
-      alert($("#student-cookie").val())
+      console.log("after processing answer")
+      console.log(data['nextc'])
+      console.log(data['next'])
+      console.log(data['question_id'])
+      console.log(data['question_answer'])
+      console.log(data['person_answer'])
+      console.log(data['verdict'])
+      console.log(data['next'])
+      console.log("cookies")
+      console.log(data['student_cookie'])
+      console.log($("#student-cookie").val())
 
       if $("#student-cookie").val() == data['student_cookie']
-        $("#questionPane").html("<font class='cute-header-formal'>" + data['nextc'] + "</font>")
+        $("#questionPane").html("<font class='cute-question-number'>question " + data['next'] + "</font><br/><font class='cute-header-formal'>" + data['nextc'] + "</font>")
 
         $(".answerButton").attr("series",data['next'])
 
@@ -53,10 +59,15 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
           x.setAttribute("ans", "0");
 
     if data['from'] == "wronganswer"
-      alert("wronganswer")
+      if $("#student-cookie").val() == data['student_cookie']
+        alert("Incorrect answer. Please try again.")
 
   enter: (student)->
     @perform 'enter', student: student
+
+  submitLobby: (from) ->
+    @perform 'submitLobby',
+    from: from
 
   answer: (game_id, team_id, player_number, series, answerText, studentCookie) ->
     @perform 'answer',

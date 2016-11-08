@@ -20,6 +20,7 @@
 .cf:after {
 	clear: both;
 }
+/*
 body {
 	background: #cfd8dc;
 	color: #37474f;
@@ -27,6 +28,7 @@ body {
 	font-size: 1em;
 	font-family: 'Raleway', Arial, sans-serif;
 }
+*/
 .support {
 	font-weight: bold;
 	padding: 2em 0 0 0;
@@ -34,6 +36,7 @@ body {
 	color: #ee2563;
 	display: none;
 }
+/*
 a {
 	color: #7986cb;
 	text-decoration: none;
@@ -43,6 +46,7 @@ a:hover,
 a:focus {
 	color: #3f51b5;
 }
+*/
 .hidden {
 	position: absolute;
 	width: 0;

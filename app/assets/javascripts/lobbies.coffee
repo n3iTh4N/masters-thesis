@@ -1,4 +1,11 @@
   $ ->
+
+    window.broadcastSubmitLobbyClick = () ->
+      console.log("submitLobby clicked being broadcasted!")
+      App.lobby.submitLobby(
+        "submitLobby"
+      )
+
     $(".pickTeamButton").click ->
       # alert($('#student-cookie').val())
       # alert($(this).attr("value"))
@@ -12,12 +19,12 @@
         )
 
     $(".answerButton").click ->
-        alert($("#student-cookie").val())
-        alert($(".answerText").val())
-        alert($(this).attr("game_id"))
-        alert($(this).attr("team_id"))
-        alert($(this).attr("player_number"))
-        alert($(this).attr("series"))
+        console.log($("#student-cookie").val())
+        console.log($(".answerText").val())
+        console.log($(this).attr("game_id"))
+        console.log($(this).attr("team_id"))
+        console.log($(this).attr("player_number"))
+        console.log($(this).attr("series"))
 
         # add params in order
         App.lobby.answer(

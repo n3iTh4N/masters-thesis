@@ -12,6 +12,11 @@ class LobbyChannel < ApplicationCable::Channel
     ActionCable.server.broadcast 'lobby_channel', data['student']
   end
 
+  def submitLobby (data)
+    ActionCable.server.broadcast 'lobby_channel',
+    from: data['from']
+  end
+
   def pickTeam (data)
     # Edit the student's team number and player number
     Student.where(id: data['student']).update_all(team_id: data['i'])
@@ -68,7 +73,8 @@ class LobbyChannel < ApplicationCable::Channel
       nextc: Question.find(qnext).content
     else
       ActionCable.server.broadcast 'lobby_channel',
-      from: "wronganswer"
+      from: "wronganswer",
+      student_cookie: data['studentCookie']
     end
   end
 
