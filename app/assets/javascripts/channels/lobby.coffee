@@ -47,8 +47,6 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
       console.log(data['student_cookie'])
       console.log($("#student-cookie").val())
 
-
-
       # update broadcasted progress bars for team
       $("##{data['student_cookie']}").children().animate({
         width: "#{data['cprogress'] / data['qcount'] * 100}%";
@@ -64,9 +62,19 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
       $("##{data['student_cookie']}").children().effect("highlight", 1000);
 
       if $("#student-cookie").val() == data['student_cookie']
-        $("#questionPane").html("<font class='cute-question-number'>question " + data['next'] + "</font><br/><font class='cute-header-formal'>" + data['nextc'] + "</font>")
+        # alert(data['qnextmod'])
+        if data['qnextmod'] != "stall"
+          $("#questionPane").effect("explode", 300);
+          $('#questionPane').effect( "highlight", 1000);
+        else
+          if data['sprogress'] == false
+            $("#questionPane").hide("fast");
+            $(".tutorialPane").html("<img src='/lock-icon.png'><br/><font class='sunshine-qcontent'>This question is locked! Wait for you teammates to unlock this question!</font>");
+          else
+            $(".tutorialPane").html("");
 
         $(".answerButton").attr("series",data['next'])
+        $("#questionPane").html("<font class='cute-question-number'>question " + data['next'] + "</font><br/><font class='sunshine-qcontent'>" + data['nextc'] + "</font>")
 
         # reset drop-area__item colors and ans property
         for x in $('.drop-area__item')
@@ -93,10 +101,7 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
         # ui effects for correct answer
         $('#myprogressbar').children().css("background", "rgb(" + r + "," + g + ",0)");
         $('#myprogressbar').effect( "pulsate", 500);
-        $("#questionPane").effect("explode", 300);
-        $('#questionPane').effect( "highlight", 1000);
         $('#myprogressbar').children().effect("highlight", 1000);
-
 
     if data['from'] == "wronganswer"
       if $("#student-cookie").val() == data['student_cookie']
@@ -106,6 +111,14 @@ App.lobby = App.cable.subscriptions.create "LobbyChannel",
         $('.tutorialPane').html("<p class='cute-tooltip'>Wrong answer. Please try another combination! :)</p>");
         $('.tutorialPane').effect("pulsate", 1000);
         $('.tutorialPane').effect("highlight", 2000);
+
+    # update team progress and display in ingame view both current player and team
+    if $("#student-team").val() == data['team_id']
+      $("#teamprogress").html(data['tprogress'] + data['sprogress'])
+      if data['sprogress'] == true
+        if !$("#questionPane").is(":visible")
+          $("#questionPane").show();
+          $(".tutorialPane").html("");
 
   enter: (student)->
     @perform 'enter', student: student

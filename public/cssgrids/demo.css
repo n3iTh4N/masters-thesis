@@ -24,6 +24,38 @@
     src:url('../fontsgrids/cute2.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'sunshine';
+    src:url('../fontsgrids/sunshine.ttf') format('truetype');
+}
+
+.sunshine-qcontent {
+	font-family: 'sunshine';
+	font-size: 3em;
+	font-weight: lighter;
+	text-decoration: none;
+	margin: 0 0 20px 0;
+	color: #3498db;
+	opacity: 0.8;
+}
+
+.sunshine-tcontent {
+	font-family: 'sunshine';
+	font-size: 2em;
+	font-weight: lighter;
+	text-decoration: none;
+	margin: 20px 0 20px 0;
+	opacity: 0.8;
+}
+
+.sunshine-lcontent {
+	font-family: 'sunshine';
+	font-size: 1em;
+	font-weight: bold;
+	text-decoration: none;
+	opacity: 0.8;
+}
+
 *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 body {

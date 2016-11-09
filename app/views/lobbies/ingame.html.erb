@@ -1,4 +1,5 @@
 <%= hidden_field_tag "student-cookie", current_student.id, { :id => "student-cookie" } %>
+<%= hidden_field_tag "student-team", current_student.team_id, { :id => "student-team" } %>
 
 <!-- load the stylesheetsandscripts -->
 <% content_for :stylesheetsandscripts do %>
@@ -27,7 +28,7 @@
 	<table width="100%">
 		<tr>
 			<td width="10%">
-				<%= current_student.first_name %>
+				<font class="sunshine-lcontent"> <%= current_student.first_name %> </font>
 			</td>
 			<td>
 				<div id="myprogressbar" align="center"></div>
@@ -38,7 +39,7 @@
 		<% a.each do |a| %>
 			<tr>
 				<td>
-					<%= a.first_name %>
+					<font class="sunshine-lcontent"> <%= a.first_name %> </font>
 				</td>
 				<td>
 					<div id="<%=a.id.to_s%>" class="teambars" align="center"></div>
@@ -61,7 +62,7 @@
 			%>
 		</font>
 		<br/>
-		<font class="cute-header-formal">
+		<font class="sunshine-qcontent">
 		  <%=
 		  Question.find(
 		  Link.where(game_id: @game_to_play).
@@ -78,7 +79,7 @@
 <div id="grid" class="grid clearfix" align="center">
 
 		<div class="tutorialPane" align="center" firstdrag="0" firstfull="0" firstsubmit="0">
-			<p class="cute-tooltip">
+			<p class="sunshine-tcontent">
 				To answer the question<br/>
 				drag the colored boxes below to make a combination <br/>
 				or scan your objects via NFC

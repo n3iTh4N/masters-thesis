@@ -36,6 +36,7 @@ class LobbyChannel < ApplicationCable::Channel
   end
 
   def answer (data)
+
     # question_id: Link.where(game_id: data['game_id'], team_id: data['team_id'], player_number: data['player_number'], series: data['series'])
     qid = Link.where(game_id: data['game_id']).
                       where(team_id: data['team_id']).
@@ -52,6 +53,13 @@ class LobbyChannel < ApplicationCable::Channel
                       where(team_id: data['team_id']).
                       where(player_number: data['player_number']).
                       where(series: qprime)[0].question_id
+
+    # query modifier of next question
+    qnextmod = Link.where(game_id: data['game_id']).
+                      where(team_id: data['team_id']).
+                      where(player_number: data['player_number']).
+                      where(series: qprime)[0].modifier
+
 
     qans = Question.find(qid).answer
 
@@ -70,6 +78,20 @@ class LobbyChannel < ApplicationCable::Channel
       # update progress column in students table to be requeried after broadcast
       Student.where(id: data['studentCookie']).update_all(progress: Student.find(data['studentCookie']).progress+1)
 
+      # broadcast array aa to whole team to check if progress is the same to unlock stalled questions
+      a = Student.where(team_id: data['team_id'])
+      aa = []
+      a.each do |a|
+        aa.push(a.progress)
+      end
+      x = aa[0]
+      sprogress = true
+      for n in aa do
+        if n != x then
+          sprogress = false
+        end
+      end
+
       ActionCable.server.broadcast 'lobby_channel',
       question_id: qid,
       question_answer: qans,
@@ -80,7 +102,11 @@ class LobbyChannel < ApplicationCable::Channel
       student_cookie: data['studentCookie'],
       nextc: Question.find(qnext).content,
       qcount: tqig,
-      cprogress: Student.find(data['studentCookie']).progress
+      cprogress: Student.find(data['studentCookie']).progress,
+      tprogress: aa,
+      team_id: data['team_id'],
+      sprogress: sprogress,
+      qnextmod: qnextmod
     else
       ActionCable.server.broadcast 'lobby_channel',
       from: "wronganswer",
