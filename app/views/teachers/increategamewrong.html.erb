@@ -16,11 +16,10 @@
   <script src="/jsdrag/modernizr.custom.js"></script>
   <script src="/jsdrag/draggabilly.pkgd.min.js"></script>
 	<script src="/jsdrag/dragdrop.js"></script>
-  <!-- for the font -->
-  <link rel="stylesheet" type="text/css" href="/cssgrids/demo.css" />
+
 <% end %>
 
-<div id="dialog-1" class="expose" title="Tutorial">Use the text boxes to configure your game. Afterwards press generate.</div>
+<div id="overlay"></div>
 
 <div class="container" style="position:relative;">
   <div id="questioncheck" hidden>
@@ -29,73 +28,73 @@
     <% end %>
   </div>
 
-  <table id="configuration" width="40%" align="left" border="0px" class="expose" style="margin: 20px 150px 10px 70px;">
-    <tr>
-      <td width="60%">
-        Give your game a name:
-      </td>
-      <td width="40%">
-        <input type='text' id='gamename' placeholder="Name your game">
-      </td>
-    </tr>
+    <table id="configuration" width="90%" align="left" border="0px" class="expose" style="margin: 20px 150px 10px 70px;">
+      <tr>
+        <td width="25%">
+          Give your game a name:
+        </td>
+        <td>
+          <input type='text' id='gamename' placeholder="Name your game">
+        </td>
+      </tr>
 
-    <tr>
-      <td>
-        How many teams do you want to have?
-      </td>
-      <td>
-        <input type='text' id='teams' placeholder='3'>
-      </td>
-    </tr>
+      <tr>
+        <td>
+          How many teams do you want to have?
+        </td>
+        <td>
+          <input type='text' id='teams' placeholder='3'>
+        </td>
+      </tr>
 
-    <tr>
-      <td>
-        How many players per team?
-      </td>
-      <td>
-        <input type='text' id='ppteam' placeholder='3'>
-      </td>
-    </tr>
+      <tr>
+        <td>
+          How many players per team?
+        </td>
+        <td>
+          <input type='text' id='ppteam' placeholder='3'>
+        </td>
+      </tr>
 
-    <tr>
-      <td>
-        How many questions per student?
-      </td>
-      <td>
-        <input type='text' id='questions' placeholder='3'>
-      </td>
-    </tr>
+      <tr>
+        <td>
+          How many questions per student?
+        </td>
+        <td>
+          <input type='text' id='questions' placeholder='3'>
+        </td>
+      </tr>
 
-    <tr>
-      <td>
+      <tr>
+        <td>
 
-      </td>
-      <td>
-        <input type='button' class='generateButton' id='generateButton' value="generate!">
-        <input type='button' class='saveGameButton' id='saveGameButton' value="Save Game">
-      </td>
-    </tr>
+        </td>
+        <td>
+          <input type='button' class='generateButton' id='generateButton' value="generate!">
+          <input type='button' class='saveGameButton' id='saveGameButton' value="Save Game">
+        </td>
+      </tr>
 
-    <input type='text' id='gameid' value="<%= Link.maximum(:game_id).next %>" hidden>
+      <input type='text' id='gameid' value="<%= Link.maximum(:game_id).next %>" hidden>
 
-  </table>
+    </table>
 
   <div id="checker">
   </div>
 
-  <table id="generationPaneTable" class="expose" width="70%" height="600px" align="center" style="background-image: url('/blueclouds.gif'); margin: 10px 200px 10px 75px;">
+  <table id="generationPaneTable" width="70%" height="600px" align="left">
     <tr>
       <!-- td to hold graphs -->
-      <td width="80%" valign="top" style="background-image: url('/yellowcandies.jpg');" border="2px">
+      <td bgcolor="#01FF0000" valign="top">
         <div id="generationPane">
         </div>
       </td>
     </tr>
   </table>
 
-  <div id="questionsPane" class=".fixed-div expose" style="background-image: url('/yellowcandies.jpg'); padding: 10px; position: fixed; right: 0px; top: 0px; background-color: red;">
-    <input type='text' id='search' placeholder="search" width="100%">
-    <table id="searchtable" border="0px">
+  <div id="questionsPane" class=".fixed-div expose" style="padding: 10px; position: fixed; right: 0px; top: 0px; background-color: red;">
+    <input type='text' id='search' placeholder="search">
+    <table id="searchtable" border="1px">
       <!-- <div id="grid"> -->
         <% for x in @questions do %>
           <tr>
@@ -122,18 +121,7 @@
     </div>
 <div class="drop-overlay"></div>
 -->
-<div id="overlay"></div>
-<style type="text/css">
-  .ui-dialog{
-    position:absolute;
-    top:70px;
-    left:600px;
-    z-index:99999;
-  }
-  .ui-widget-overlay{
-    z-index:99999;
-  }
-</style>
+
 <script>
   (function() {
     $.getScript("/jsdrag/dynamic.js")
@@ -144,23 +132,20 @@
         $('#overlay').fadeIn(300);
     });
     */
-
-
+    /*
     var tutst = 0;
     $("#configuration").css('z-index','99999');
-    $("#dialog-1").css('z-index','99999');
     $('#overlay').fadeIn(300);
 
     $('#overlay').click(function(e){
       tutst = tutst + 1;
-      // alert(tutst);
+      alert(tutst);
       if (tutst == 1){
         $('#overlay').fadeOut(300, function(){
             $('#configuration').css('z-index','1');
         });
         $('#overlay').fadeIn(300);
         $("#generationPaneTable").css('z-index','99999');
-        $("#dialog-1").html("The generated graph will appear here");
       }
       else if (tutst == 2){
         $('#overlay').fadeOut(300, function(){
@@ -168,23 +153,14 @@
         });
         $('#overlay').fadeIn(300);
         $("#questionsPane").css('z-index','99999');
-        $("#dialog-1").html("drag the questions onto the boxes to create a series of questions per student");
       }
       else{
         $('#overlay').fadeOut(300, function(){
-            $('#questionsPane').css('z-index','1');
+            $('#questionPane').css('z-index','1');
         });
-        $("#dialog-1").html("Alright! Have fun creating your game. You can close me now.");
       }
     });
-
-    $( "#dialog-1" ).dialog({
-      autoOpen: true,
-      hide: "puff",
-      show : "slide",
-      height: 200,
-    });
-    $("#dialog-1").zIndex(99999);
+    */
     /*
     $('#overlay').click(function(e){
         tutst = tutst + 1;
